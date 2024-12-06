@@ -13,7 +13,6 @@ else:
     with open("2024/input/day_03.txt", "r") as file:
         memory = file.read().rstrip()
 
-
 re_mul = re.compile(r"mul\((\d{1,3}),(\d{1,3})\)")
 solution = sum(int(m[1]) * int(m[2]) for m in re_mul.finditer(memory))
 print(f"Part 1: {solution}")
