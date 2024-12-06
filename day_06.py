@@ -36,7 +36,7 @@ while True:
 print(f"Part 1: {len(visited)}")
 
 count, d_start = 0, DIRECTION[direction]
-for position in visited:
+for position in visited - {start}:
     obstacles_mod = obstacles | {position}
     (r, c), d = start, d_start
     visited_mod = {(r, c, d)}
