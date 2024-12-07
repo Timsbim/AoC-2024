@@ -20,7 +20,10 @@ def solve(ops, test, numbers, res):
     n, *numbers = numbers
     if len(numbers) == 0:
         return any(op(res, n) == test for op in ops)
-    return any(solve(ops, test, numbers, op(res, n)) for op in ops)
+    for op in ops:
+        if (res1 := op(res, n)) <= test and solve(ops, test, numbers, res1):
+            return True
+    return False
 
 
 ops = add, mul
