@@ -16,20 +16,20 @@ with open(file_name, "r") as file:
     for line in file:
         test, numbers = line.split(": ")
         equations.append((int(test), tuple(map(int, numbers.split()))))
-equations = tuple(equations)
 
 
 def solve(ops, test, numbers):
     length, stack = len(numbers), [(1, numbers[0])]
     while stack:
-        i, n = stack.pop()
-        if i == length and n == test:
-            return True
-        if i < length:
-            for op in ops:
-                m = op(n, numbers[i])
-                if m <= test:
-                    stack.append((i + 1, m))
+        i, res0 = stack.pop()
+        n, i = numbers[i], i + 1
+        for op in ops:
+            res1 = op(res0, n)
+            if i == length:
+                if res1 == test:
+                    return True
+            elif res1 <= test:
+                stack.append((i, res1))
     return False
 
 
