@@ -16,6 +16,7 @@ with open(file_name, "r") as file:
     for line in file:
         test, numbers = line.split(": ")
         equations.append((int(test), tuple(map(int, numbers.split()))))
+equations = tuple(equations)
 
 
 def solve(ops, test, numbers):
