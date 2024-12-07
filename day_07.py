@@ -1,6 +1,5 @@
 from functools import partial
 from operator import add, mul
-from pprint import pprint
 
 
 print("Day 7")
