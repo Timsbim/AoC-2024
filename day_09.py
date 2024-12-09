@@ -26,8 +26,7 @@ for i, j in zip(free, reversed(occupied)):
     if j < i:
         break
     files[i], files[j] = files[j], "."
-solution = checksum(files)
-print(f"Part 1: {solution}")
+print(f"Part 1: {checksum(files)}")
 
 ID, files, occupied, free = -1, [], {}, {}
 for i, n in enumerate(disk_map):
@@ -35,9 +34,7 @@ for i, n in enumerate(disk_map):
     container, key, item = (free, l, ".") if i % 2 else (occupied, ID := ID + 1, ID)
     container[key] = range(l, l + n)
     files.extend(item for _ in range(n))
-occupied = [*occupied.items()]
-while occupied:
-    ID, idxso = occupied.pop()
+for ID, idxso in reversed(occupied.items()):
     i, l, found = idxso.start, len(idxso), False
     for j, idxsf in free.items():
         if i <= idxsf.start:
@@ -52,5 +49,4 @@ while occupied:
             free[j] = range(idxsf.start + len(idxso), idxsf.stop)
         else:
             del free[j]
-solution = checksum(files)
-print(f"Part 2: {solution}")
+print(f"Part 2: {checksum(files)}")
