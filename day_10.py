@@ -20,12 +20,10 @@ for (r0, c0), n in topos.items():
         heads_new = []
         for r, c in heads:
             for dr, dc in (0, 1), (1, 0), (0, -1), (-1, 0):
-                r1, c1 = r + dr, c + dc
-                if topos.get((r1, c1), -1) == n:
+                if topos.get((r1 := r + dr, c1 := c + dc), -1) == n:
                     heads_new.append((r1, c1))
         heads = heads_new
-    score += len(set(heads))
-    count += len(heads)
+    score, count = score + len(set(heads)), count + len(heads)
 
 print(f"Part 1: {score}")
 print(f"Part 2: {count}")
