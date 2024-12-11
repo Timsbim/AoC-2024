@@ -22,16 +22,15 @@ def blink(stone):
     return stone[:m], str(int(stone[m:]))
 
 
-def count(arrangement, steps):
-    counts = Counter(arrangement)
+def count(counts, steps):
     for _ in range(steps):
         counts_new = Counter()
         for stone, n in counts.items():
             for stone in blink(stone):
                 counts_new[stone] += n
         counts = counts_new
-    return counts.total()
+    return counts
 
 
-print(f"Part 1: {count(arrangement, 25)}")
-print(f"Part 2: {count(arrangement, 75)}")
+print(f"Part 1: {(counts := count(Counter(arrangement), 25)).total()}")
+print(f"Part 2: {count(counts, 50).total()}")
