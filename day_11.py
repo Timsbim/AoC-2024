@@ -10,6 +10,7 @@ else:
     with open("2024/input/day_11.txt", "r") as file:
         arrangement = tuple(file.read().split())
 
+
 @cache
 def count(stone, step=0, max_step=25):
     if step == max_step:
