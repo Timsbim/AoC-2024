@@ -25,7 +25,5 @@ def count(stone, step=0, max_step=25):
     return count_1 + count(str(int(stone[m:])), step, max_step)
 
 
-solution = sum(count(stone) for stone in arrangement)
-print(f"Part 1: {solution}")
-solution = sum(count(stone, max_step=75) for stone in arrangement)
-print(f"Part 2: {solution}")
+print(f"Part 1: {sum(count(stone) for stone in arrangement)}")
+print(f"Part 2: {sum(count(stone, max_step=75) for stone in arrangement)}")
