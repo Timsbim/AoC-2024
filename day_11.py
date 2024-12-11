@@ -14,17 +14,14 @@ else:
 def count(stone, step=0, max_step=25):
     if step == max_step:
         return 1
-    step = step + 1
+    step += 1
     if stone ==  "0":
         return count("1", step, max_step)
-    elif len(stone) % 2 == 0:
-        m = len(stone) // 2
-        return (
-            count(stone[:m], step, max_step)
-            + count(str(int(stone[m:])), step, max_step)
-        )
-    else:
+    if len(stone) % 2:
         return count(str(int(stone) * 2024), step, max_step)
+    m = len(stone) // 2
+    count_1 = count(stone[:m], step, max_step)
+    return count_1 + count(str(int(stone[m:])), step, max_step)
 
 
 solution = sum(count(stone) for stone in arrangement)
