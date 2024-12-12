@@ -1,4 +1,3 @@
-from itertools import groupby
 from operator import itemgetter
 
 
@@ -41,10 +40,10 @@ def holes(row):
 
 
 def fences(plot):
-    rows = tuple(
-        tuple(c for _, c in group)
-        for _, group in groupby(sorted(plot), key=itemgetter(0))
-    )
+    rows = {}
+    for r, c in plot:
+        rows.setdefault(r, []).append(c)
+    rows = tuple(sorted(rows[r]) for r in sorted(rows.keys()))
     
     row_0 = rows[0]
     if len(rows) == 1:
@@ -67,17 +66,16 @@ print(f"Part 1: {sum(len(plot) * fences(plot) for plot in plots)}")
 def sides(plot):
     count = 0
     for i, j in (0, 1), (1, 0):
-        key_i, key_j = itemgetter(i), itemgetter(j)
-        rows = tuple(
-            tuple(map(key_j, grp))
-            for _, grp in groupby(sorted(plot, key=itemgetter(i, j)), key_i)
-        )    
-        
+        rows, key_i, key_j = {}, itemgetter(i), itemgetter(j)
+        for p in plot:
+            rows.setdefault(key_i(p), []).append(key_j(p))
+        rows = tuple(rows[r] for r in sorted(rows.keys()))
+
         row_0 = rows[0]
-        if len(rows) == 1 or all(len(row) == 1 for row in rows):
+        if i == 0 and (len(rows) == 1 or all(len(row) == 1 for row in rows)):
             return 4
         
-        count += holes(row_0) + 1
+        count += holes(sorted(row_0)) + 1
         cols_0 = set(row_0)
         for i, row in enumerate(rows[1:], 1):
             cols_1 = set(row)
@@ -88,7 +86,7 @@ def sides(plot):
                     state = c1 in cols_1
                 c0 = c1
             cols_0 = cols_1
-        count += holes(row) + 1
+        count += holes(sorted(row)) + 1
 
     return count
 
