@@ -74,25 +74,21 @@ def sides(plot):
         )    
         
         row_0 = rows[0]
-        if len(rows) == 1:
-            return 4 * (holes(row_0) + 1)
+        if len(rows) == 1 or all(len(row) == 1 for row in rows):
+            return 4
         
         count += holes(row_0) + 1
         cols_0 = set(row_0)
         for i, row in enumerate(rows[1:], 1):
             cols_1 = set(row)
-            if len(diff := sorted(cols_0 ^ cols_1)) > 0:
-                key = lambda c: c in cols_1
-                part = [diff[0]]
-                for c in diff[1:]:
-                    if c > part[-1] + 1:
-                        count += sum(1 for _, _ in groupby(part, key))
-                        part = [c]
-                    else:
-                        part.append(c)
-                count += sum(1 for _, _ in groupby(part, key))
+            c0, state = -2, True
+            for c1 in sorted(cols_0 ^ cols_1):
+                if c1 - c0 > 1 or ((c1 in cols_1) != state):
+                    count += 1
+                    state = c1 in cols_1
+                c0 = c1
             cols_0 = cols_1
-        count += holes(rows[-1]) + 1
+        count += holes(row) + 1
 
     return count
 
