@@ -83,7 +83,7 @@ def sides(plot):
             cols_1 = set(row)
             c0, state = -2, True
             for c1 in sorted(cols_0 ^ cols_1):
-                if c1 - c0 > 1 or ((c1 in cols_1) != state):
+                if c1 - c0 > 1 or (c1 in cols_1) != state:
                     count += 1
                     state = c1 in cols_1
                 c0 = c1
