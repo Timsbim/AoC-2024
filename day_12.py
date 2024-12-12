@@ -10,37 +10,30 @@ if EXAMPLE:
     file_name += "_example"
 file_name += ".txt"
 with open(file_name, "r") as file:
-    garden = tuple(line.rstrip() for line in file)
-
-ROWS, COLS = len(garden), len(garden[0])
-
-
-def move(r, c):
-    for dr, dc in (0, 1), (1, 0), (0, -1), (-1, 0):
-        r1, c1 = r + dr, c + dc
-        if 0 <= r1 < ROWS and 0 <= c1 < COLS:
-            yield r1, c1
+    plants = {}
+    for r, row in enumerate(file):
+        for c, plant in enumerate(row.rstrip()):
+            plants.setdefault(plant, set()).add((r, c))
 
 
-plots, visited = [], set()
-for r0 in range(ROWS):
-    for c0 in range(COLS):
-        if (p := (r0, c0)) in visited:
-            continue
-        visited.add(p)
-        plant = garden[r0][c0]
+def plot_it(spots):
+    while spots:
+        p = spots.pop()
         plot, rim = {p}, {p}
         while rim:
             rim_new = set()
             for r, c in rim:
-                for p in move(r, c):
-                    if p not in visited and garden[p[0]][p[1]] == plant:
+                for dr, dc in (0, 1), (1, 0), (0, -1), (-1, 0):
+                    p = r + dr, c + dc
+                    if p in spots:
                         plot.add(p)
+                        spots.remove(p)
                         rim_new.add(p)
-                        visited.add(p)
             rim = rim_new
-        plots.append(plot)
-plots = tuple(plots)
+        yield plot
+
+
+plots = tuple(plot for spots in plants.values() for plot in plot_it(spots))
 
 
 def holes(row):
@@ -55,7 +48,7 @@ def fences(plot):
     
     row_0 = rows[0]
     if len(rows) == 1:
-        return 2 * len(row_0) + 2 + 2 * holes(row_0)       
+        return 2 * (len(row_0) + holes(row_0) + 1)
     
     count = len(row_0) + 2 * (holes(row_0) + 1)
     cols_0 = set(row_0)
@@ -68,8 +61,7 @@ def fences(plot):
     return count + len(row_1)
     
 
-solution = sum(len(plot) * fences(plot) for plot in plots)
-print(f"Part 1: {solution}")
+print(f"Part 1: {sum(len(plot) * fences(plot) for plot in plots)}")
 
 
 def sides(plot):
@@ -105,5 +97,4 @@ def sides(plot):
     return count
 
 
-solution = sum(len(plot) * sides(plot) for plot in plots)
-print(f"Part 2: {solution}")
+print(f"Part 2: {sum(len(plot) * sides(plot) for plot in plots)}")
