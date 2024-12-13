@@ -31,17 +31,17 @@ def costs(a, b, p):
         if na.is_integer() and nb.is_integer():
             return int(na) * 3 + int(nb)
     if (
-        (n0 := p[0] / a[0]).is_integer()
-        and (n1 := p[1] / a[1]).is_integer()
-        and (n := int(n0)) == int(n1)
-    ):
-        return n * 3
-    if (
         (n0 := p[0] / b[0]).is_integer()
         and (n1 := p[1] / b[1]).is_integer()
         and (n := int(n0)) == int(n1) 
     ):
         return n
+    if (
+        (n0 := p[0] / a[0]).is_integer()
+        and (n1 := p[1] / a[1]).is_integer()
+        and (n := int(n0)) == int(n1)
+    ):
+        return n * 3
     return 0
 
 
