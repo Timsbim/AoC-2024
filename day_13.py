@@ -29,8 +29,7 @@ def costs(a, b, p):
         da, db = det(p, b), det(a, p)
         na, nb = da / d, db / d
         if na.is_integer() and nb.is_integer():
-            na, nb = int(na), int(nb)
-            return na * 3 + nb
+            return int(na) * 3 + int(nb)
     if (
         (n0 := p[0] / a[0]).is_integer()
         and (n1 := p[1] / a[1]).is_integer()
