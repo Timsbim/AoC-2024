@@ -13,21 +13,21 @@ with open("2024/input/day_14.txt", "r") as file:
 robots = tuple(robots)
 ROWS, COLS = 103, 101
 
-state = tuple(
+positions = tuple(
     ((py + 100 * vy) % ROWS, (px + 100 * vx) % COLS)
     for (py, px), (vy, vx) in robots
 )
 quadrants = {(0, 0): 0, (0, 1): 0, (1, 0): 0, (1, 1): 0}
 m_rows, m_cols = ROWS // 2, COLS // 2
-for y, x in state:
+for y, x in positions:
     if y != m_rows and x != m_cols:
-        quadrants[int(y < m_rows), int(x < m_cols)] += 1 
+        quadrants[int(y < m_rows), int(x < m_cols)] += 1    
 print(f"Part 1: {prod(quadrants.values())}")
 
 
-def contains_frame(state):
+def contains_frame(positions):
     lines = {}
-    for y, x in set(state):
+    for y, x in set(positions):
         lines.setdefault(y, set()).add(x)
     for line in lines.values():
         line = "".join("*" if x in line else " " for x in range(COLS))
@@ -36,13 +36,13 @@ def contains_frame(state):
     return False
 
 
-state, velocities = zip(*robots)
+positions, velocities = zip(*robots)
 for s in range(1, 10404):
-    state = tuple(
+    positions = tuple(
         ((py + vy) % ROWS, (px + vx) % COLS)
-        for (py, px), (vy, vx) in zip(state, velocities)
+        for (py, px), (vy, vx) in zip(positions, velocities)
     )
-    if contains_frame(state):
+    if contains_frame(positions):
         solution = s
         break
 print(f"Part 2: {solution}")
