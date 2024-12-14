@@ -40,5 +40,5 @@ for p, spots in plants.items():
         count_1 += count * fences
         count_2 += count * sides
     
-print(f"Part 1: {count_2}")
+print(f"Part 1: {count_1}")
 print(f"Part 2: {count_2}")
