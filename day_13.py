@@ -2,7 +2,7 @@ import re
 
 
 print("Day 13")
-EXAMPLE = True
+EXAMPLE = False
 
 file_name = "2024/input/day_13"
 if EXAMPLE:
