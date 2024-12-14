@@ -37,12 +37,11 @@ def contains_frame(positions):
 
 
 positions, velocities = zip(*robots)
-for s in range(1, 10404):
+for second in range(1, 10404):
     positions = tuple(
         ((py + vy) % ROWS, (px + vx) % COLS)
         for (py, px), (vy, vx) in zip(positions, velocities)
     )
     if contains_frame(positions):
-        solution = s
         break
-print(f"Part 2: {solution}")
+print(f"Part 2: {second}")
