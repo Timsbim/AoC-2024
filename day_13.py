@@ -27,22 +27,21 @@ def det(x, y):
 def costs(a, b, p):
     if (d := det(a, b)) != 0:
         da, db = det(p, b), det(a, p)
-        na, nb = da / d, db / d
-        if na.is_integer() and nb.is_integer():
-            return int(na) * 3 + int(nb)
-    if (
-        (n0 := p[0] / b[0]).is_integer()
-        and (n1 := p[1] / b[1]).is_integer()
-        and (n := int(n0)) == int(n1) 
-    ):
-        return n
-    if (
-        (n0 := p[0] / a[0]).is_integer()
-        and (n1 := p[1] / a[1]).is_integer()
-        and (n := int(n0)) == int(n1)
-    ):
-        return n * 3
-    return 0
+        na, nb = da // d, db // d
+        if all(na * a[i] + nb * b[i] == p[i] for i in (0, 1)):
+            return na * 3 + nb
+
+    n = None
+    if all(a[i] != 0 for i in (0, 1)):
+        n0, n1 = (p[i] // a[i] for i in (0, 1))
+        if n0 == n1 and all(n0 * a[i] == p[i] for i in (0, 1)):
+            n = n0 * 3
+    if all(b[i] != 0 for i in (0, 1)):
+        n0, n1 = (p[i] // b[i] for i in (0, 1))
+        if n0 == n1 and all(n0 * b[i] == p[i] for i in (0, 1)):
+            n = min(n, n0) if n is not None else n0    
+    
+    return n if n is not None else 0
 
 
 print(f"Part 1: {sum(costs(a, b, p) for a, b, p in machines)}")
