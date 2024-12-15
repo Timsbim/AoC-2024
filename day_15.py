@@ -26,11 +26,11 @@ def read_input(file_name, part=1):
     return grid, start, rows, cols, moves
 
 
-DIRECTION = {">": (0, 1), "v": (1, 0), "<": (0, -1), "^": (-1, 0)}
+DELTA = {">": (0, 1), "v": (1, 0), "<": (0, -1), "^": (-1, 0)}
 
 
 def step(r0, c0, d):
-    dr, dc = DIRECTION[d]
+    dr, dc = DELTA[d]
     match GRID[r := r0 + dr, c := c0 + dc]:
         case "#": return r0, c0
         case ".": return r, c
@@ -84,7 +84,7 @@ def connected(d, box):
 
 
 def step(r0, c0, d):
-    dr, dc = DIRECTION[d]
+    dr, dc = DELTA[d]
     match char := GRID[r := r0 + dr, c := c0 + dc]:
         case "#": return r0, c0
         case ".": return r, c
