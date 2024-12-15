@@ -4,10 +4,7 @@ from collections import Counter
 print("Day 1")
 EXAMPLE = False
 
-file_name = f"2024/input/day_01"
-if EXAMPLE:
-    file_name += "_example"
-file_name += ".txt"
+file_name = f"day_01_input{'_example' if EXAMPLE else ''}.txt"
 with open(file_name, "r") as file:
     numbers = tuple(zip(*(map(int, line.split()) for line in file)))
 
