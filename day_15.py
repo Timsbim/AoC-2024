@@ -1,14 +1,11 @@
 print("Day 15")
 EXAMPLE = False
 
-file_name = f"2024/input/day_15"
-if EXAMPLE:
-    file_name += "_example"
-file_name += ".txt"
+FILE_NAME = f"2024/input/day_15{'_example' if EXAMPLE else ''}.txt"
 
 
-def read_input(file_name, part=1):
-    with open(file_name, "r") as file:
+def read_input(part=1):
+    with open(FILE_NAME, "r") as file:
         layout, moves = file.read().split("\n\n")
     if part == 2:
         repl = {".": "..", "@": "@.", "#": "##", "O": "[]"}
@@ -49,7 +46,7 @@ def step(r0, c0, d):
                 return r, c
 
 
-GRID, START, ROWS, COLS, MOVES = read_input(file_name)
+GRID, START, ROWS, COLS, MOVES = read_input()
 r, c = START
 for d in MOVES:
     r, c = step(r, c, d)
@@ -109,7 +106,7 @@ def step(r0, c0, d):
     return base
 
 
-GRID, START, ROWS, COLS, MOVES = read_input(file_name, part=2)
+GRID, START, ROWS, COLS, MOVES = read_input(part=2)
 r, c = START
 for d in MOVES:
     r, c = step(r, c, d)
