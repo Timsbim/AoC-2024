@@ -4,10 +4,7 @@ from itertools import combinations
 print("Day 8")
 EXAMPLE = False
 
-file_name = "2024/input/day_08"
-if EXAMPLE:
-    file_name += "_example"
-file_name += ".txt"
+file_name = f"day_08_input{'_example' if EXAMPLE else ''}.txt"
 antennas = {}
 with open(file_name, "r") as file:
     lines = [line.rstrip() for line in file]
