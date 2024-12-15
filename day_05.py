@@ -4,10 +4,7 @@ from functools import cmp_to_key, partial
 print("Day 5")
 EXAMPLE = False
 
-file_name = f"2024/input/day_05"
-if EXAMPLE:
-    file_name += "_example"
-file_name += ".txt"
+file_name = f"day_05_input{'_example' if EXAMPLE else ''}.txt"
 with open(file_name, "r") as file:
     orderings = set()
     while "|" in (line := next(file)):
