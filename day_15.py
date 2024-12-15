@@ -42,7 +42,7 @@ def step(r0, c0, d):
                 case ".":
                     GRID[r, c], GRID[r, i] = ".", "O"
                     return r, c
-    # d in ("v", "^")
+    # d in ("v", "^2)
     for i in (range(r + 1, ROWS) if d == "v" else range(r - 1, -1, -1)):
         match GRID[i, c]:
             case "#": return r0, c0
@@ -60,13 +60,13 @@ print(f"Part 1: {solution}")
 
 
 def next_boxes(d, box):
-    (r, c0, c1) = box
+    r, c = box
     r += 1 if d == "v" else -1
-    cols = c0 - 1, c0, c1
+    cols = c - 1, c, c + 1
     chars = tuple(GRID[r, c] for c in cols)
     if "#" in chars[1:]:
         return "#"
-    return tuple((r, c, c + 1) for c, char in zip(cols, chars) if char == "[")
+    return tuple((r, c) for c, char in zip(cols, chars) if char == "[")
 
 
 def get_connection(d, box):
@@ -102,14 +102,14 @@ def step(r0, c0, d):
                     return r, c
     # d in ("v", "^")
     base = r, c
-    box = (r, c, c + 1) if char == "[" else (r, c - 1, c)
+    box = (r, c) if char == "[" else (r, c - 1)
     connection = get_connection(d, box)
     if connection != "#":
         dr = 1 if d == "v" else -1
-        for r, c0, c1 in connection:
-            GRID[r, c0] = GRID[r, c1] = "."
-        for r, c0, c1 in connection:
-            GRID[r + dr, c0], GRID[r + dr, c1] = "[", "]"
+        for r, c in connection:
+            GRID[r, c] = GRID[r, c + 1] = "."
+        for r, c in connection:
+            GRID[r + dr, c], GRID[r + dr, c + 1] = "[", "]"
         return base
     return r0, c0
 
