@@ -69,7 +69,7 @@ def next_boxes(d, box):
     return tuple((r, c) for c, char in zip(cols, chars) if char == "[")
 
 
-def get_connection(d, box):
+def connected(d, box):
     connection, layer = {box}, {box}
     while layer:
         layer_new = set()
@@ -78,9 +78,8 @@ def get_connection(d, box):
             if boxes == "#":
                 return "#"
             layer_new.update(boxes)
-        if layer_new:
-            connection |= layer_new
         layer = layer_new
+        connection.update(layer)
     return tuple(connection)
 
 
@@ -101,9 +100,9 @@ def step(r0, c0, d):
                     GRID[r, c] = "."
                     return r, c
     # d in ("v", "^")
-    base, box = (r, c), (r, c) if char == "[" else (r, c - 1)
-    connection = get_connection(d, box)
+    connection = connected(d, (r, c) if char == "[" else (r, c - 1))
     if connection != "#":
+        base = r, c
         dr = 1 if d == "v" else -1
         for r, c in connection:
             GRID[r, c] = GRID[r, c + 1] = "."
