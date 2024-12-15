@@ -1,10 +1,7 @@
 print("Day 10")
 EXAMPLE = False
 
-file_name = "2024/input/day_10"
-if EXAMPLE:
-    file_name += "_example"
-file_name += ".txt"
+file_name = f"day_10_input{'_example' if EXAMPLE else ''}.txt"
 with open(file_name, "r") as file:
     topos = {
         (r, c): n
