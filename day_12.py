@@ -1,10 +1,7 @@
 print("Day 12")
 EXAMPLE = False
 
-file_name = f"2024/input/day_12"
-if EXAMPLE:
-    file_name += "_example"
-file_name += ".txt"
+file_name = f"day_12_input{'_example' if EXAMPLE else ''}.txt"
 with open(file_name, "r") as file:
     plants = {}
     for r, row in enumerate(file):
