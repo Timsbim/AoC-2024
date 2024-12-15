@@ -44,13 +44,13 @@ def step(r0, c0, d):
                 case ".":
                     GRID[r, c], GRID[r, i] = ".", "O"
                     return r, c
-    if d in ("v", "^"):
-        for i in (range(r + 1, ROWS) if d == "v" else range(r - 1, -1, -1)):
-            match GRID[i, c]:
-                case "#": return r0, c0
-                case ".":
-                    GRID[r, c], GRID[i, c] = ".", "O"
-                    return r, c
+    # d in ("v", "^")
+    for i in (range(r + 1, ROWS) if d == "v" else range(r - 1, -1, -1)):
+        match GRID[i, c]:
+            case "#": return r0, c0
+            case ".":
+                GRID[r, c], GRID[i, c] = ".", "O"
+                return r, c
 
 
 GRID, START, ROWS, COLS, MOVES = read_input(file_name)
@@ -102,18 +102,18 @@ def step(r0, c0, d):
                         GRID[r, j] = GRID[r, j + dc]
                     GRID[r, c] = "."
                     return r, c
-    if d in ("v", "^"):
-        base = r, c
-        box = (r, c, c + 1) if char == "[" else (r, c - 1, c)
-        connection = get_connection(d, box)
-        if connection != "#":
-            dr = 1 if d == "v" else -1
-            for r, c0, c1 in connection:
-                GRID[r, c0] = GRID[r, c1] = "."
-            for r, c0, c1 in connection:
-                GRID[r + dr, c0], GRID[r + dr, c1] = "[", "]"
-            return base
-        return r0, c0
+    # d in ("v", "^")
+    base = r, c
+    box = (r, c, c + 1) if char == "[" else (r, c - 1, c)
+    connection = get_connection(d, box)
+    if connection != "#":
+        dr = 1 if d == "v" else -1
+        for r, c0, c1 in connection:
+            GRID[r, c0] = GRID[r, c1] = "."
+        for r, c0, c1 in connection:
+            GRID[r + dr, c0], GRID[r + dr, c1] = "[", "]"
+        return base
+    return r0, c0
 
 
 GRID, START, ROWS, COLS, MOVES = read_input(file_name, part=2)
