@@ -11,10 +11,8 @@ def read_input(file_name, part=1):
     with open(file_name, "r") as file:
         lines, moves = file.read().split("\n\n")
     if part == 2:
-        lines = (
-            lines.replace(".", "..") .replace("@", "@.")
-                 .replace("#", "##") .replace("O", "[]")
-        )
+        repl = {".": "..", "@": "@.", "#": "##", "O": "[]"}
+        lines = "".join(repl.get(char, char) for char in lines)
     lines, moves = lines.splitlines(), moves.replace("\n", "")
     rows, cols = len(lines), len(lines[0])
     grid = {}
