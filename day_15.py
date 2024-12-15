@@ -54,25 +54,19 @@ solution = sum(100 * r + c for (r, c), char in GRID.items() if char == "O")
 print(f"Part 1: {solution}")
 
 
-def next_boxes(d, box):
-    r, c = box
-    r += 1 if d == "v" else -1
-    cols = c - 1, c, c + 1
-    chars = tuple(GRID[r, c] for c in cols)
-    if "#" in chars[1:]:
-        return "#"
-    return tuple((r, c) for c, char in zip(cols, chars) if char == "[")
-
-
 def connected(d, box):
+    dr = 1 if d == "v" else -1
     connection, layer = {box}, {box}
     while layer:
         layer_new = set()
-        for box in layer:
-            boxes = next_boxes(d, box)
-            if boxes == "#":
-                return "#"
-            layer_new.update(boxes)
+        for r, c0 in layer:
+            r += dr
+            for c in c0 - 1, c0, c0 + 1:
+                char = GRID[r, c]
+                if c >= c0 and char == "#":
+                    return "#"
+                if char == "[":
+                    layer_new.add((r, c))
         layer = layer_new
         connection.update(layer)
     return tuple(connection)
