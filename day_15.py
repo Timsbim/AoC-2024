@@ -101,8 +101,7 @@ def step(r0, c0, d):
                     GRID[r, c] = "."
                     return r, c
     # d in ("v", "^")
-    base = r, c
-    box = (r, c) if char == "[" else (r, c - 1)
+    base, box = (r, c), (r, c) if char == "[" else (r, c - 1)
     connection = get_connection(d, box)
     if connection != "#":
         dr = 1 if d == "v" else -1
