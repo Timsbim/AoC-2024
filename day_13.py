@@ -4,10 +4,7 @@ import re
 print("Day 13")
 EXAMPLE = False
 
-file_name = "2024/input/day_13"
-if EXAMPLE:
-    file_name += "_example"
-file_name += ".txt"
+file_name = f"day_13_input{'_example' if EXAMPLE else ''}.txt""
 re_xy = re.compile("X(?:\+|=)(\d+), Y(?:\+|=)(\d+)")
 with open(file_name, "r") as file:
     blocks = file.read().split("\n\n")
