@@ -59,14 +59,14 @@ def connected(d, box):
     connection, layer = {box}, {box}
     while layer:
         layer_new = set()
-        for r, c0 in layer:
+        for r, c in layer:
             r += dr
-            for c in c0 - 1, c0, c0 + 1:
-                char = GRID[r, c]
-                if c >= c0 and char == "#":
+            for dc in -1, 0, 1:
+                char = GRID[r, c1 := c + dc]
+                if dc >= 0 and char == "#":
                     return "#"
                 if char == "[":
-                    layer_new.add((r, c))
+                    layer_new.add((r, c1))
         layer = layer_new
         connection.update(layer)
     return tuple(connection)
