@@ -9,20 +9,18 @@ file_name += ".txt"
 
 def read_input(file_name, part=1):
     with open(file_name, "r") as file:
-        lines, moves = file.read().split("\n\n")
+        layout, moves = file.read().split("\n\n")
     if part == 2:
         repl = {".": "..", "@": "@.", "#": "##", "O": "[]"}
-        lines = "".join(repl.get(char, char) for char in lines)
-    lines, moves = lines.splitlines(), moves.replace("\n", "")
+        layout = "".join(repl.get(char, char) for char in layout)
+    lines, moves = layout.splitlines(), moves.replace("\n", "")
     rows, cols = len(lines), len(lines[0])
     grid = {}
     for r, line in enumerate(lines):
         for c, char in enumerate(line):
             if char == "@":
-                start = r, c
-                grid[r, c] = "."
-            else:
-                grid[r, c] = char
+                start, char = (r, c), "."
+            grid[r, c] = char
     return grid, start, rows, cols, moves
 
 
