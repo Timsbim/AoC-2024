@@ -101,15 +101,14 @@ def step(r0, c0, d):
                     return r, c
     # d in ("v", "^")
     connection = connected(d, (r, c) if char == "[" else (r, c - 1))
-    if connection != "#":
-        base = r, c
-        dr = 1 if d == "v" else -1
-        for r, c in connection:
-            GRID[r, c] = GRID[r, c + 1] = "."
-        for r, c in connection:
-            GRID[r + dr, c], GRID[r + dr, c + 1] = "[", "]"
-        return base
-    return r0, c0
+    if connection == "#":
+        return r0, c0
+    base, dr = (r, c), 1 if d == "v" else -1
+    for r, c in connection:
+        GRID[r, c] = GRID[r, c + 1] = "."
+    for r, c in connection:
+        GRID[r + dr, c], GRID[r + dr, c + 1] = "[", "]"
+    return base
 
 
 GRID, START, ROWS, COLS, MOVES = read_input(file_name, part=2)
