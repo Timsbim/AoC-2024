@@ -37,7 +37,7 @@ def step(r0, c0, d):
                 case ".":
                     GRID[r, c], GRID[r, i] = ".", "O"
                     return r, c
-    # d in ("v", "^2)
+    # d in ("v", "^")
     for i in (range(r + 1, ROWS) if d == "v" else range(r - 1, -1, -1)):
         match GRID[i, c]:
             case "#": return r0, c0
