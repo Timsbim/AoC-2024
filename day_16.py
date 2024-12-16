@@ -17,7 +17,7 @@ for r, row in enumerate(layout.splitlines()):
 DELTA = (0, 1), (1, 0), (0, -1), (-1, 0)
 INF = float("inf")
 
-minimum, paths, visited = INF, [(START, 0, 0)], {(START, 0): 0}
+minimum, paths, dists = INF, [(START, 0, 0)], {(START, 0): 0}
 while paths:
     paths_new = []
     for (r, c), d, cost in paths:
@@ -27,9 +27,9 @@ while paths:
                 if GRID[p := (r + dr, c + dc)] != "#":
                     if p == END:
                         minimum = cost_new
-                    elif cost_new < visited.get(pd := (p, d), INF):
+                    elif cost_new < dists.get(pd := (p, d), INF):
                         paths_new.append((p, d, cost_new))
-                        visited[pd] = cost_new
+                        dists[pd] = cost_new
     paths = paths_new
 print(f"Part 1: {minimum}")
 
@@ -46,6 +46,6 @@ while paths:
                     if p == END:
                         seats.update(path_new)
                     continue
-                if cost_new <= visited[p, d]:
+                if cost_new <= dists[p, d]:
                     paths.append((path_new, d, cost_new))
 print(f"Part 2: {len(seats)}")
