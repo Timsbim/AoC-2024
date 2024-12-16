@@ -1,3 +1,6 @@
+# 1. step: find minium costs (via Dijkstra)
+# 2. step: find corresponding paths with DFS and using the distance measurements from 1.
+# => Faster than version 1!
 print("Day 16")
 
 EXAMPLE = False
