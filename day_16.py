@@ -20,23 +20,21 @@ minimum, seats = INF, set()
 paths, visited = [((START,), 0, 0)], {(START, 0): 0}
 while paths:
     path, d, cost = paths.pop()
-    if minimum < cost:
-        continue
-    if path[-1] == END:
-        if cost < minimum:
-            minimum, seats = cost, set(path)
-        else:
-            seats.update(path)
-        continue
-    (r, c) = path[-1]
-    for d1, addon in (d, 1), ((d - 1) % 4, 1_001), ((d + 1) % 4, 1_001):
+    r, c = path[-1]
+    for d_new, addon in (d, 1), ((d - 1) % 4, 1_001), ((d + 1) % 4, 1_001):
         if (cost_new := cost + addon) <= minimum:
-            dr, dc = DELTA[d1]
-            if GRID[r1 := r + dr, c1 := c + dc] != "#":
-                p1 = r1, c1
-                pd = p1, d1
+            dr, dc = DELTA[d_new]
+            if GRID[p := (r + dr, c + dc)] != "#":
+                path_new = path + (p,)
+                if p == END:
+                    if cost_new < minimum:
+                        minimum, seats = cost_new, set(path_new)
+                    else:
+                        seats.update(path_new)
+                    continue
+                pd = p, d_new
                 if cost_new <= visited.get(pd, INF):
-                    paths.append((path + (p1,), d1, cost_new))
+                    paths.append((path_new, d_new, cost_new))
                     visited[pd] = cost_new
 solution_1, solution_2 = minimum, len(seats)
 
