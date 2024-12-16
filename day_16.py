@@ -32,6 +32,8 @@ while paths:
                     else:
                         seats.update(path_new)
                     continue
+                if cost_new == minimum:
+                    continue
                 if cost_new <= visited.get(pd := (p, d_new), INF):
                     paths.append((path_new, d_new, cost_new))
                     visited[pd] = cost_new
