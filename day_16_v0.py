@@ -7,14 +7,15 @@ EXAMPLE = False
 file_name = f"2024/input/day_16{'_example' if EXAMPLE else ''}.txt"
 with open(file_name, "r") as file:
     layout = file.read()
-GRID = {}
+GRID = set()
 for r, row in enumerate(layout.splitlines()):
     for c, char in enumerate(row):
         if char == "S":
             START, char = (r, c), "."
         elif char == "E":
             END, char = (r, c), "."
-        GRID[r, c] = char
+        if char == ".":
+            GRID.add((r, c))
 
 DELTA = (0, 1), (1, 0), (0, -1), (-1, 0)
 INF = float("inf")
@@ -26,7 +27,7 @@ while paths:
         for d, add in (d, 1), ((d - 1) % 4, 1_001), ((d + 1) % 4, 1_001):
             if (cost_new := cost + add) < minimum:
                 dr, dc = DELTA[d]
-                if GRID[p := (r + dr, c + dc)] != "#":
+                if (p := (r + dr, c + dc)) in GRID:
                     if p == END:
                         minimum = cost_new
                     elif cost_new < dists.get(pd := (p, d), INF):
@@ -42,7 +43,7 @@ while paths:
     for d, add in (d, 1), ((d - 1) % 4, 1_001), ((d + 1) % 4, 1_001):
         if (cost_new := cost + add) <= minimum:
             dr, dc = DELTA[d]
-            if GRID[p := (r + dr, c + dc)] != "#":
+            if (p := (r + dr, c + dc)) in GRID:
                 path_new = path + (p,)
                 if cost_new == minimum:
                     if p == END:
