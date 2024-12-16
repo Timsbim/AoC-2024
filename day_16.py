@@ -17,7 +17,7 @@ DELTAS = (0, 1), (1, 0), (0, -1), (-1, 0)
 INF = float("inf")
 
 minimum, seats = INF, set()
-paths, visited = [([START], 0, 0)], {(START, 0): 0}
+paths, visited = [((START,), 0, 0)], {(START, 0): 0}
 while paths:
     path, d, cost = paths.pop()
     if minimum < cost:
@@ -34,13 +34,13 @@ while paths:
             p1 = r1, c1
             pd = p1, d
             if cost + 1 <= visited.get(pd, INF):
-                paths.append((path + [p1], d, cost_new))
+                paths.append((path + (p1,), d, cost_new))
                 visited[pd] = cost_new
     if (cost_new := cost + 1_000) <= minimum:
         for d1 in (d - 1) % 4, (d + 1) % 4:
             pd = path[-1], d1
             if cost_new <= visited.get(pd, INF):
-                paths.append((list(path), d1, cost_new))
+                paths.append((path, d1, cost_new))
                 visited[pd] = cost_new
 solution_1, solution_2 = minimum, len(seats)
 
