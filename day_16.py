@@ -28,16 +28,9 @@ while paths:
         else:
             seats.update(path)
         continue
-    (r, c), (dr, dc) = path[-1], DELTA[d]
-    if (cost_new := cost + 1) <= minimum:
-        if GRID[r1 := r + dr, c1 := c + dc] != "#":
-            p1 = r1, c1
-            pd = p1, d
-            if cost + 1 <= visited.get(pd, INF):
-                paths.append((path + (p1,), d, cost_new))
-                visited[pd] = cost_new
-    if (cost_new := cost + 1_001) <= minimum:
-        for d1 in (d - 1) % 4, (d + 1) % 4:
+    (r, c) = path[-1]
+    for d1, addon in (d, 1), ((d - 1) % 4, 1_001), ((d + 1) % 4, 1_001):
+        if (cost_new := cost + addon) <= minimum:
             dr, dc = DELTA[d1]
             if GRID[r1 := r + dr, c1 := c + dc] != "#":
                 p1 = r1, c1
