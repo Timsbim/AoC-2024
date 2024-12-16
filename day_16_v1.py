@@ -27,19 +27,18 @@ while paths:
             if (cost_new := cost + add) <= minimum:
                 dr, dc = DELTA[d]
                 if (p := (r + dr, c + dc)) in grid:
-                    path_new = path + (p,)
                     if p == end:
                         if cost_new < minimum:
-                            minimum, seats = cost_new, set(path_new)
+                            minimum, seats = cost_new, set(path)
                         else:
-                            seats.update(path_new)
+                            seats.update(path)
                         continue
                     if cost_new == minimum:
                         continue
                     if cost_new <= dists.get(pd := (p, d), INF):
-                        paths_new.append((path_new, d, cost_new))
+                        paths_new.append((path + (p,), d, cost_new))
                         dists[pd] = cost_new
     paths = paths_new
 
 print(f"Part 1: {minimum}")
-print(f"Part 2: {len(seats)}")
+print(f"Part 2: {len(seats) + 1}")
