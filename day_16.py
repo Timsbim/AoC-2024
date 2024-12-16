@@ -46,6 +46,6 @@ while paths:
                     if p == END:
                         seats.update(path_new)
                     continue
-                if cost_new <= dists[p, d]:
+                if cost_new == dists[p, d]:
                     paths.append((path_new, d, cost_new))
 print(f"Part 2: {len(seats)}")
