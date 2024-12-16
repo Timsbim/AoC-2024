@@ -2,7 +2,6 @@
 # 2. step: find corresponding paths with DFS and using the distance measurements from 1.
 # => Faster than version 1!
 print("Day 16")
-
 EXAMPLE = False
 
 file_name = f"2024/input/day_16{'_example' if EXAMPLE else ''}.txt"
