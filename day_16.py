@@ -13,7 +13,7 @@ for r, row in enumerate(layout.splitlines()):
             END, char = (r, c), "."
         GRID[r, c] = char
 
-DELTAS = (0, 1), (1, 0), (0, -1), (-1, 0)
+DELTA = (0, 1), (1, 0), (0, -1), (-1, 0)
 INF = float("inf")
 
 minimum, seats = INF, set()
@@ -28,7 +28,7 @@ while paths:
         else:
             seats.update(path)
         continue
-    (r, c), (dr, dc) = path[-1], DELTAS[d]
+    (r, c), (dr, dc) = path[-1], DELTA[d]
     if (cost_new := cost + 1) <= minimum:
         if GRID[r1 := r + dr, c1 := c + dc] != "#":
             p1 = r1, c1
