@@ -32,8 +32,7 @@ while paths:
                     else:
                         seats.update(path_new)
                     continue
-                pd = p, d_new
-                if cost_new <= visited.get(pd, INF):
+                if cost_new <= visited.get(pd := (p, d_new), INF):
                     paths.append((path_new, d_new, cost_new))
                     visited[pd] = cost_new
 solution_1, solution_2 = minimum, len(seats)
