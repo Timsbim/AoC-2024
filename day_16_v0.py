@@ -40,11 +40,11 @@ while paths:
     path, d, cost = paths.pop()
     r, c = path[-1]
     for d, add in (d, 1), ((d - 1) % 4, 1_001), ((d + 1) % 4, 1_001):
-        if (cost_new := cost + add) <= minimum:
-            dr, dc = DELTA[d]
-            if (p := (r + dr, c + dc)) in grid and cost_new == dists[p, d]:
-                    if p == end:
-                        seats.update(path)
-                    else:
-                        paths.append((path + (p,), d, cost_new))
+        if (cost_new := cost + add) > minimum: continue
+        dr, dc = DELTA[d]
+        if (p := (r + dr, c + dc)) in grid and cost_new == dists[p, d]:
+            if p == end:
+                seats.update(path)
+            else:
+                paths.append((path + (p,), d, cost_new))
 print(f"Part 2: {len(seats)}")
