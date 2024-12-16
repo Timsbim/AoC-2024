@@ -33,15 +33,17 @@ while paths:
         if GRID[r1 := r + dr, c1 := c + dc] != "#":
             p1 = r1, c1
             pd = p1, d
-            if cost_new <= visited.get(pd, INF):
+            if cost + 1 <= visited.get(pd, INF):
                 paths.append((path + (p1,), d, cost_new))
                 visited[pd] = cost_new
     if (cost_new := cost + 1_000) <= minimum:
         for d1 in (d - 1) % 4, (d + 1) % 4:
-            pd = path[-1], d1
-            if cost_new <= visited.get(pd, INF):
-                paths.append((path, d1, cost_new))
-                visited[pd] = cost_new
+            dr, dc = DELTA[d1]
+            if GRID[r + dr, c + dc] != "#":
+                pd = path[-1], d1
+                if cost_new <= visited.get(pd, INF):
+                    paths.append((path, d1, cost_new))
+                    visited[pd] = cost_new
 solution_1, solution_2 = minimum, len(seats)
 
 print(f"Part 1: {solution_1}")
