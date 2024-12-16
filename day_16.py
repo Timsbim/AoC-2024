@@ -33,7 +33,7 @@ while paths:
         if GRID[r1 := r + dr, c1 := c + dc] != "#":
             p1 = r1, c1
             pd = p1, d
-            if cost + 1 <= visited.get(pd, INF):
+            if cost_new <= visited.get(pd, INF):
                 paths.append((path + (p1,), d, cost_new))
                 visited[pd] = cost_new
     if (cost_new := cost + 1_000) <= minimum:
