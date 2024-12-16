@@ -1,4 +1,4 @@
-# Find minimum costs (via Dijkstra) and at the same time all corresponding paths
+# Find minimum costs (via Dijkstra) & at the same time all corresponding paths
 # => Compacter than version 0, but slower!
 print("Day 16")
 EXAMPLE = False
