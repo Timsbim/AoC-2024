@@ -34,7 +34,7 @@ while paths:
     paths = paths_new
 print(f"Part 1: {minimum}")
 
-seats, paths = set(), [((start,), 0, 0)]
+seats, paths = {end}, [((start,), 0, 0)]
 while paths:
     path, d, cost = paths.pop()
     r, c = path[-1]
@@ -42,11 +42,10 @@ while paths:
         if (cost_new := cost + add) <= minimum:
             dr, dc = DELTA[d]
             if (p := (r + dr, c + dc)) in grid:
-                path_new = path + (p,)
                 if cost_new == minimum:
                     if p == end:
-                        seats.update(path_new)
+                        seats.update(path)
                     continue
                 if cost_new == dists[p, d]:
-                    paths.append((path_new, d, cost_new))
+                    paths.append((path + (p,), d, cost_new))
 print(f"Part 2: {len(seats)}")
