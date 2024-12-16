@@ -3,14 +3,13 @@
 print("Day 16")
 EXAMPLE = False
 
+grid = {}
 file_name = f"2024/input/day_16{'_example' if EXAMPLE else ''}.txt"
 with open(file_name, "r") as file:
-    layout = file.read()
-grid = {}
-for r, row in enumerate(layout.splitlines()):
-    for c, char in enumerate(row):
-        if char != "#":
-            grid.setdefault(char, set()).add((r, c))
+    for r, line in enumerate(file):
+        for c, char in enumerate(line.rstrip()):
+            if char != "#":
+                grid.setdefault(char, set()).add((r, c))
 start, end = grid["S"].pop(), grid["E"].pop()
 grid = grid["."] | {start, end}
 
