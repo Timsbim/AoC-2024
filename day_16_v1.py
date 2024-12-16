@@ -6,15 +6,13 @@ EXAMPLE = False
 file_name = f"2024/input/day_16{'_example' if EXAMPLE else ''}.txt"
 with open(file_name, "r") as file:
     layout = file.read()
-grid = set()
+grid = {}
 for r, row in enumerate(layout.splitlines()):
     for c, char in enumerate(row):
-        if char == "S":
-            start, char = (r, c), "."
-        elif char == "E":
-            end, char = (r, c), "."
-        if char == ".":
-            grid.add((r, c))
+        if char != "#":
+            grid.setdefault(char, set()).add((r, c))
+start, end = grid["S"].pop(), grid["E"].pop()
+grid = grid["."] | {start, end}
 
 DELTA = (0, 1), (1, 0), (0, -1), (-1, 0)
 INF = float("inf")
