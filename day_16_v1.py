@@ -1,7 +1,6 @@
 # Find minimum costs (via Dijkstra) and at the same time all corresponding paths
 # => Compacter than version 0, but slower!
 print("Day 16")
-
 EXAMPLE = False
 
 file_name = f"2024/input/day_16{'_example' if EXAMPLE else ''}.txt"
