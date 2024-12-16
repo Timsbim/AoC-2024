@@ -6,20 +6,21 @@ EXAMPLE = False
 file_name = f"2024/input/day_16{'_example' if EXAMPLE else ''}.txt"
 with open(file_name, "r") as file:
     layout = file.read()
-GRID = {}
+grid = set()
 for r, row in enumerate(layout.splitlines()):
     for c, char in enumerate(row):
         if char == "S":
-            START, char = (r, c), "."
+            start, char = (r, c), "."
         elif char == "E":
-            END, char = (r, c), "."
-        GRID[r, c] = char
+            end, char = (r, c), "."
+        if char == ".":
+            grid.add((r, c))
 
 DELTA = (0, 1), (1, 0), (0, -1), (-1, 0)
 INF = float("inf")
 
 minimum, seats = INF, set()
-paths, dists = [((START,), 0, 0)], {(START, 0): 0}
+paths, dists = [((start,), 0, 0)], {(start, 0): 0}
 while paths:
     paths_new = []
     for path, d, cost in paths:
@@ -27,9 +28,9 @@ while paths:
         for d, add in (d, 1), ((d - 1) % 4, 1_001), ((d + 1) % 4, 1_001):
             if (cost_new := cost + add) <= minimum:
                 dr, dc = DELTA[d]
-                if GRID[p := (r + dr, c + dc)] != "#":
+                if (p := (r + dr, c + dc)) in grid:
                     path_new = path + (p,)
-                    if p == END:
+                    if p == end:
                         if cost_new < minimum:
                             minimum, seats = cost_new, set(path_new)
                         else:
