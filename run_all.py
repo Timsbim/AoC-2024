@@ -1,4 +1,5 @@
 import re
+from argparse import ArgumentParser
 from collections import Counter
 from functools import cache, cmp_to_key, partial
 from itertools import combinations
@@ -6,7 +7,9 @@ from math import prod
 from operator import add, mul
 
 
-EXAMPLE = False
+parser = ArgumentParser()
+parser.add_argument("-e", "--example", action="store_true")
+EXAMPLE = parser.parse_args().example        
 
 
 def day_1():
