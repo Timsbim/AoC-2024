@@ -37,13 +37,11 @@ while 0 <= (i:= step(registers, out, i)) < LENGTH:
 print(f"Part 1: {','.join(map(str, out))}")
 
 
-def get_one_out(A):
+def one_out(A):
     out, registers, i = [], {"A": A, "B": 0, "C": 0}, 0
-    while not out:
-        i = step(registers, out, i)
-        if i < 0 or LENGTH <= i:
-            return None
-    return out.pop()
+    while 0 <= (i:= step(registers, out, i)) < LENGTH:
+        if out:
+            return out[0]
     
 
 candidates = [0]
@@ -51,7 +49,7 @@ for p in PROGRAM[::-1]:
     candidates_new = []
     for c in candidates:
         for A in range(c * 8, c * 8 + 8):
-            if get_one_out(A) == p:
+            if one_out(A) == p:
                 candidates_new.append(A)
     candidates = candidates_new
 print(f"Part 2: {min(candidates)}")
