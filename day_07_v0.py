@@ -5,7 +5,7 @@ from operator import add, mul
 print("Day 7")
 EXAMPLE = False
 
-file_name = f"day_07_input{'_example' if EXAMPLE else ''}.txt"
+file_name = f"2024/input/day_07{'_example' if EXAMPLE else ''}.txt"
 with open(file_name, "r") as file:
     equations = []
     for line in file:

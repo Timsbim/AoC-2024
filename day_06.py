@@ -1,7 +1,7 @@
 print(f"Day 6")
 EXAMPLE = False
 
-file_name = f"day_06_input{'_example' if EXAMPLE else ''}.txt"
+file_name = f"2024/input/day_06{'_example' if EXAMPLE else ''}.txt"
 with open(file_name, "r") as file:
     grid = tuple(line.rstrip() for line in file)
 ROWS, COLS = len(grid), len(grid[0])

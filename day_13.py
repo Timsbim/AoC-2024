@@ -4,8 +4,8 @@ import re
 print("Day 13")
 EXAMPLE = False
 
-file_name = f"day_13_input{'_example' if EXAMPLE else ''}.txt""
-re_xy = re.compile("X(?:\+|=)(\d+), Y(?:\+|=)(\d+)")
+file_name = f"2024/input/day_13{'_example' if EXAMPLE else ''}.txt"
+re_xy = re.compile(r"X(?:\+|=)(\d+), Y(?:\+|=)(\d+)")
 with open(file_name, "r") as file:
     blocks = file.read().split("\n\n")
 machines = []

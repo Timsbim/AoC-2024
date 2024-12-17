@@ -1,7 +1,7 @@
 print("Day 4")
 EXAMPLE = False
 
-file_name = f"day_04_input{'_example' if EXAMPLE else ''}.txt"
+file_name = f"2024/input/day_04{'_example' if EXAMPLE else ''}.txt"
 with open(file_name, "r") as file:
     lines = [line.rstrip() for line in file]
 if EXAMPLE:
