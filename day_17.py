@@ -3,12 +3,12 @@ EXAMPLE = False
 
 file_name = f"2024/input/day_17{'_example' if EXAMPLE else ''}.txt"
 with open(file_name, "r") as file:
-    blocks = file.read().split("\n\n")
+    registers, program = file.read().split("\n\n")
 initial_state = {}
-for register in blocks[0].splitlines():
+for register in registers.splitlines():
     _, reg, val = register.split()
     initial_state[reg[0]] = int(val)
-PROGRAM = tuple(map(int, blocks[1].split()[1].split(",")))
+PROGRAM = tuple(map(int, program.split()[1].split(",")))
 LENGTH = len(PROGRAM)
 
 REGS = {4: "A", 5: "B", 6: "C"}
