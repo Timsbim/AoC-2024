@@ -13,7 +13,7 @@ EXAMPLE = parser.parse_args().example
 
 
 def day_1():
-    print("Day 1")
+    print("Day 1:")
 
     file_name = f"2024/input/day_01{'_example' if EXAMPLE else ''}.txt"
     with open(file_name, "r") as file:
@@ -22,15 +22,15 @@ def day_1():
     solution = sum(
         abs(n - m) for n, m in zip(sorted(numbers[0]), sorted(numbers[1]))
     )
-    print(f"Part 1: {solution}")
+    print(f"  - part 1: {solution}")
 
     counts2 = Counter(numbers[1])
     solution = sum(n * counts2.get(n, 0) for n in numbers[0])
-    print(f"Part 2: {solution}")
+    print(f"  - part 2: {solution}")
 
 
 def day_2():
-    print("Day 2")
+    print("Day 2:")
 
     file_name = f"2024/input/day_02{'_example' if EXAMPLE else ''}.txt"
     with open(file_name, "r") as file:
@@ -47,7 +47,7 @@ def day_2():
 
 
     solution = sum(is_safe(report) for report in reports)
-    print(f"Part 1: {solution}")
+    print(f"  - part 1: {solution}")
 
 
     def is_safe_mod(report):
@@ -59,11 +59,11 @@ def day_2():
  
 
     solution = sum(is_safe_mod(report) for report in reports)
-    print(f"Part 2: {solution}")
+    print(f"  - part 2: {solution}")
 
 
 def day_3():
-    print("Day 3")
+    print("Day 3:")
 
     if EXAMPLE:
         memory = (
@@ -76,7 +76,7 @@ def day_3():
 
     re_mul = re.compile(r"mul\((\d{1,3}),(\d{1,3})\)")
     solution = sum(int(m[1]) * int(m[2]) for m in re_mul.finditer(memory))
-    print(f"Part 1: {solution}")
+    print(f"  - part 1: {solution}")
 
     re_trim = re.compile(r"mul\((\d{1,3}),(\d{1,3})\)|do\(\)|don't\(\)")
     solution, mul = 0, True
@@ -87,11 +87,11 @@ def day_3():
             mul = False
         elif mul:
             solution += int(m[1]) * int(m[2])
-    print(f"Part 2: {solution}")
+    print(f"  - part 2: {solution}")
 
 
 def day_4():
-    print("Day 4")
+    print("Day 4:")
 
     file_name = f"2024/input/day_04{'_example' if EXAMPLE else ''}.txt"
     with open(file_name, "r") as file:
@@ -123,7 +123,7 @@ def day_4():
             for d in range(ROWS, ROWS + COLS - 1)
         )
     )
-    print(f"Part 1: {solution}")
+    print(f"  - part 1: {solution}")
 
     count, ms = 0, {"M", "S"}
     solution = sum(
@@ -133,11 +133,11 @@ def day_4():
         for r in range(1, ROWS - 1)
         for c in range(1, COLS - 1)
     )
-    print(f"Part 2: {solution}")
+    print(f"  - part 2: {solution}")
 
 
 def day_5():
-    print("Day 5")
+    print("Day 5:")
 
     file_name = f"2024/input/day_05{'_example' if EXAMPLE else ''}.txt"
     with open(file_name, "r") as file:
@@ -158,7 +158,7 @@ def day_5():
     solution = sum(
         update[len(update) // 2] for update in updates if is_correct(update)
     )
-    print(f"Part 1: {solution}")
+    print(f"  - part 1: {solution}")
 
     def cmp(a, b): return 1 if (a, b) in orderings else -1
 
@@ -168,7 +168,7 @@ def day_5():
         for update in updates
         if not is_correct(update)
     )
-    print(f"Part 2: {solution}")
+    print(f"  - part 2: {solution}")
 
 
 def day_6():
@@ -202,7 +202,7 @@ def day_6():
         else:
             r, c = r1, c1
             visited.add((r, c)) 
-    print(f"Part 1: {len(visited)}")
+    print(f"  - part 1: {len(visited)}")
 
     count, d_start = 0, DIRECTION[direction]
     for position in visited - {start}:
@@ -222,11 +222,11 @@ def day_6():
                 count += 1
                 break
             visited_mod.add((r, c, d))
-    print(f"Part 2: {count}")
+    print(f"  - part 2: {count}")
 
 
 def day_7():
-    print("Day 7")
+    print("Day 7:")
 
     file_name = f"2024/input/day_07{'_example' if EXAMPLE else ''}.txt"
     with open(file_name, "r") as file:
@@ -254,16 +254,16 @@ def day_7():
 
     check = partial(solve, (add, mul))
     solution = sum(test for test, numbers in equations if check(test, numbers))
-    print(f"Part 1: {solution}")
+    print(f"  - part 1: {solution}")
 
     def concat(n, m): return int(f"{n}{m}")
     check = partial(solve, (add, mul, concat))
     solution = sum(test for test, numbers in equations if check(test, numbers))
-    print(f"Part 2: {solution}")
+    print(f"  - part 2: {solution}")
 
 
 def day_8():
-    print("Day 8")
+    print("Day 8:")
 
     file_name = f"2024/input/day_08{'_example' if EXAMPLE else ''}.txt"
     antennas = {}
@@ -282,7 +282,7 @@ def day_8():
                 if 0 <= r < ROWS and 0 <= c < COLS:
                     antinodes.add((r, c))
     solution = len(antinodes)
-    print(f"Part 1: {solution}")
+    print(f"  - part 1: {solution}")
 
     antinodes = set()
     for positions in antennas.values():
@@ -292,11 +292,11 @@ def day_8():
                     antinodes.add((r, c))
                     r, c = r + dr, c + dc
     solution = len(antinodes)
-    print(f"Part 2: {solution}")
+    print(f"  - part 2: {solution}")
 
 
 def day_9():
-    print("Day 9")
+    print("Day 9:")
 
     if EXAMPLE:
         disk_map = "2333133121414131402"
@@ -323,7 +323,7 @@ def day_9():
         if j < i:
             break
         files[i], files[j] = files[j], "."
-    print(f"Part 1: {checksum(files)}")
+    print(f"  - part 1: {checksum(files)}")
 
     ID, files, occupied, free = -1, [], {}, {}
     for i, n in enumerate(disk_map):
@@ -346,11 +346,11 @@ def day_9():
                 free[j] = range(idxsf.start + len(idxso), idxsf.stop)
             else:
                 del free[j]
-    print(f"Part 2: {checksum(files)}")
+    print(f"  - part 2: {checksum(files)}")
 
 
 def day_10():
-    print("Day 10")
+    print("Day 10:")
 
     file_name = f"2024/input/day_10{'_example' if EXAMPLE else ''}.txt"
     with open(file_name, "r") as file:
@@ -373,12 +373,12 @@ def day_10():
             heads = heads_new
         score, count = score + len(set(heads)), count + len(heads)
 
-    print(f"Part 1: {score}")
-    print(f"Part 2: {count}")
+    print(f"  - part 1: {score}")
+    print(f"  - part 2: {count}")
 
 
 def day_11():
-    print("Day 11")
+    print("Day 11:")
 
     file_name = f"2024/input/day_11{'_example' if EXAMPLE else ''}.txt"
     with open("2024/input/day_11.txt", "r") as file:
@@ -405,12 +405,12 @@ def day_11():
         return counts
 
 
-    print(f"Part 1: {(counts := count(Counter(arrangement), 25)).total()}")
-    print(f"Part 2: {count(counts, 50).total()}")
+    print(f"  - part 1: {(counts := count(Counter(arrangement), 25)).total()}")
+    print(f"  - part 2: {count(counts, 50).total()}")
 
 
 def day_12():
-    print("Day 12")
+    print("Day 12:")
 
     file_name = f"2024/input/day_12{'_example' if EXAMPLE else ''}.txt"
     with open(file_name, "r") as file:
@@ -448,12 +448,12 @@ def day_12():
             count_1 += count * fences
             count_2 += count * sides
     
-    print(f"Part 1: {count_1}")
-    print(f"Part 2: {count_2}")
+    print(f"  - part 1: {count_1}")
+    print(f"  - part 2: {count_2}")
 
 
 def day_13():
-    print("Day 13")
+    print("Day 13:")
 
     file_name = f"2024/input/day_13{'_example' if EXAMPLE else ''}.txt"
     re_xy = re.compile(r"X(?:\+|=)(\d+), Y(?:\+|=)(\d+)")
@@ -492,13 +492,13 @@ def day_13():
         return n if n is not None else 0
 
 
-    print(f"Part 1: {sum(costs(a, b, p) for a, b, p in machines)}")
+    print(f"  - part 1: {sum(costs(a, b, p) for a, b, p in machines)}")
     s = 10_000_000_000_000
-    print(f"Part 2: {sum(costs(a, b, (p[0] + s, p[1] + s)) for a, b, p in machines)}")
+    print(f"  - part 2: {sum(costs(a, b, (p[0] + s, p[1] + s)) for a, b, p in machines)}")
 
 
 def day_14():
-    print("Day 14")
+    print("Day 14:")
 
     robots = []
     with open("2024/input/day_14.txt", "r") as file:
@@ -519,7 +519,7 @@ def day_14():
     for y, x in positions:
         if y != m_rows and x != m_cols:
             quadrants[int(y < m_rows), int(x < m_cols)] += 1    
-    print(f"Part 1: {prod(quadrants.values())}")
+    print(f"  - part 1: {prod(quadrants.values())}")
 
 
     def contains_frame(positions):
@@ -541,11 +541,11 @@ def day_14():
         )
         if contains_frame(positions):
             break
-    print(f"Part 2: {second}")
+    print(f"  - part 2: {second}")
 
 
 def day_15():
-    print("Day 15")
+    print("Day 15:")
 
     FILE_NAME = f"2024/input/day_15{'_example' if EXAMPLE else ''}.txt"
 
@@ -597,7 +597,7 @@ def day_15():
     for d in MOVES:
         r, c = step(r, c, d)
     solution = sum(100 * r + c for (r, c), char in GRID.items() if char == "O")
-    print(f"Part 1: {solution}")
+    print(f"  - part 1: {solution}")
 
 
     def connected(d, box):
@@ -651,11 +651,11 @@ def day_15():
     for d in MOVES:
         r, c = step(r, c, d)
     solution = sum(100 * r + c for (r, c), char in GRID.items() if char == "[")
-    print(f"Part 2: {solution}")
+    print(f"  - part 2: {solution}")
 
 
 def day_16():
-    print("Day 16")
+    print("Day 16:")
 
     grid = {}
     file_name = f"2024/input/day_16{'_example' if EXAMPLE else ''}.txt"
@@ -685,7 +685,7 @@ def day_16():
                     else:
                         paths_new.append((p, d, cost_new))
         paths = paths_new
-    print(f"Part 1: {minimum}")
+    print(f"  - part 1: {minimum}")
 
     seats, paths = {end}, [((start,), 0, 0)]
     while paths:
@@ -699,11 +699,11 @@ def day_16():
                     seats.update(path)
                 else:
                     paths.append((path + (p,), d, cost_new))
-    print(f"Part 2: {len(seats)}")
+    print(f"  - part 2: {len(seats)}")
 
 
 def day_17():
-    print("Day 17")
+    print("Day 17:")
 
     file_name = f"2024/input/day_17{'_example' if EXAMPLE else ''}.txt"
     with open(file_name, "r") as file:
@@ -737,7 +737,7 @@ def day_17():
     state, out, i = initial_state, [], 0
     while 0 <= (i := step(state, out, i)) < LENGTH:
         pass   
-    print(f"Part 1: {','.join(map(str, out))}")
+    print(f"  - part 1: {','.join(map(str, out))}")
 
 
     def one_out(A):
@@ -755,7 +755,7 @@ def day_17():
                 if one_out(A) == p:
                     candidates_new.append(A)
         candidates = candidates_new
-    print(f"Part 2: {min(candidates)}")
+    print(f"  - part 2: {min(candidates)}")
 
 
 days = {
