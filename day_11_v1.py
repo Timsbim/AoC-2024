@@ -4,11 +4,9 @@ from functools import cache
 print("Day 11")
 EXAMPLE = False
 
-if EXAMPLE:
-    arrangement = tuple("125 17".split())
-else:
-    with open("2024/input/day_11.txt", "r") as file:
-        arrangement = tuple(file.read().split())
+file_name = f"2024/input/day_11{'_example' if EXAMPLE else ''}.txt"
+with open("2024/input/day_11.txt", "r") as file:
+    arrangement = tuple(file.read().split())
 
 
 @cache
