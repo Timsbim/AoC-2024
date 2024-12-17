@@ -31,7 +31,7 @@ def step(state, out, i):
 
 
 state, out, i = initial_state, [], 0
-while 0 <= (i:= step(state, out, i)) < LENGTH:
+while 0 <= (i := step(state, out, i)) < LENGTH:
     pass   
 print(f"Part 1: {','.join(map(str, out))}")
 
