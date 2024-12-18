@@ -96,7 +96,7 @@ run_loop = dedent("""\
             seconds = end - start
             print(f"  => run time: {seconds:.2f} seconds\\n")
             total_seconds += seconds
-        print(f"\\n=> total run time: {total_seconds:.2f} seconds total\\n")
+        print(f"\\n=> total run time: {total_seconds:.2f} seconds\\n")
         """
     )
 strings.append(indent(run_loop, indentation))
