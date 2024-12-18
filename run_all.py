@@ -194,6 +194,9 @@ def day_5():
 def day_6():
     print(f"Day 6")
 
+    DIRECTION = dict(zip(">v<^", range(4)))
+    DELTA = (0, 1), (1, 0), (0, -1), (-1, 0)
+
     file_name = f"2024/input/day_06{'_example' if EXAMPLE else ''}.txt"
     with open(file_name, "r") as file:
         grid = tuple(line.rstrip() for line in file)
@@ -206,42 +209,39 @@ def day_6():
             if char == "#":
                 obstacles.add((r, c))
             else:
-                start, direction = (r, c), char
+                start, direction = (r, c), DIRECTION[char]
 
-    DIRECTION = dict(zip("^>v<", range(4)))
-    DELTA = (-1, 0), (0, 1), (1, 0), (0, -1)
-
-    visited, (r, c), d = {start}, start, DIRECTION[direction]
+    visited, (r, c), d = {start}, start, direction
     while True:
-        dr, dc = DELTA[d]
-        r1, c1 = r + dr, c + dc
-        if r1 < 0 or r1 == ROWS or c1 < 0 or c1 == COLS:
-            break
-        if (r1, c1) in obstacles:
-            d = (d + 1) % 4
-        else:
+        (dr, dc), d1 = DELTA[d], d
+        while 0 <= (r1 := r + dr) < ROWS and 0 <= (c1 := c + dc) < COLS:
+            if (r1, c1) in obstacles:
+                d1 = (d + 1) % 4
+                break
             r, c = r1, c1
-            visited.add((r, c)) 
+            visited.add((r, c))
+        if d1 == d: break
+        d = d1
     print(f"  - part 1: {len(visited)}")
 
-    count, d_start = 0, DIRECTION[direction]
+    count, d_start = 0, direction
     for position in visited - {start}:
         obstacles_mod = obstacles | {position}
         (r, c), d = start, d_start
-        visited_mod = {(r, c, d)}
+        visited = {(r, c, d)}
         while True:
-            dr, dc = DELTA[d]
-            r1, c1 = r + dr, c + dc
-            if r1 < 0 or r1 == ROWS or c1 < 0 or c1 == COLS:
-                break
-            if (r1, c1) in obstacles_mod:
-                d = (d + 1) % 4
-            else:
+            (dr, dc), d1 = DELTA[d], d
+            while 0 <= (r1 := r + dr) < ROWS and 0 <= (c1 := c + dc) < COLS:
+                if (r1, c1) in obstacles_mod:
+                    d1 = (d + 1) % 4
+                    break
                 r, c = r1, c1
-            if (r, c, d) in visited_mod:
+            if d1 == d: break
+            d = d1
+            if (r, c, d) in visited:
                 count += 1
                 break
-            visited_mod.add((r, c, d))
+            visited.add((r, c, d))
     print(f"  - part 2: {count}")
 
 
