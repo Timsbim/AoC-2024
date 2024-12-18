@@ -5,11 +5,31 @@ from functools import cache, cmp_to_key, partial
 from itertools import combinations
 from math import prod
 from operator import add, mul
+from time import perf_counter
 
 
 parser = ArgumentParser()
 parser.add_argument("-e", "--example", action="store_true")
-EXAMPLE = parser.parse_args().example        
+parser.add_argument("-d", "--days", default="1-25")
+args = parser.parse_args()
+
+EXAMPLE = args.example
+
+interval = r"(\d{1,2}|\d{1,2}-\d{1,2})"
+if re.match(rf"{interval}(,{interval})*", args.days):
+    days = set()
+    for part in args.days.split(","):
+        interval = tuple(map(int, part.split("-")))
+        for n in interval:
+            if n == 0 or 25 < n:
+                parser.error(f"-d: wrong argument(s): {n}")
+        start, stop = interval[0], interval[-1]
+        if start != stop and stop < start:
+            parser.error(f"-d: wrong argument(s): {start} > {stop}")
+        days.update(range(start, stop + 1))
+else:
+    parser.error("-d: wrong format!")
+selected_days = tuple(sorted(days))        
 
 
 def day_1():
@@ -782,5 +802,15 @@ days = {
 if __name__ == "__main__":
 
 
-    for func in days.values():
+    total = 0
+    for day in selected_days:
+        if day not in days:
+            continue
+        func = days[day]
+        start = perf_counter()
         func()
+        end = perf_counter()
+        duration = end - start
+        print(f"  => {duration:.2f} seconds\n")
+        total += duration
+    print(f"\n=> {total:.2f} seconds total\n")
