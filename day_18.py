@@ -30,9 +30,13 @@ def part_1(first):
 
 print(f"Part 1: {part_1(12 if EXAMPLE else 1024)}")
 
-for first in range(len(POSITIONS), 0, -1):
-    if part_1(first) is not None:
-        y, x = POSITIONS[first]
-        solution = f"{x},{y}"
-        break
+left, right = 13 if EXAMPLE else 1025, len(POSITIONS) - 1
+while left != right:
+    mid = left + (right - left) // 2
+    if part_1(mid) is None:
+        right = mid - 1
+    else:
+        left = mid + 1
+y, x = POSITIONS[left]
+solution = f"{x},{y}"
 print(f"Part 2: {solution}")
