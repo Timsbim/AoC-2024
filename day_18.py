@@ -1,5 +1,5 @@
 print("Day 18")
-EXAMPLE = True
+EXAMPLE = False
 
 file_name = f"2024/input/day_18{'_example' if EXAMPLE else ''}.txt"
 with open(file_name, "r") as file:
