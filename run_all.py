@@ -778,6 +778,46 @@ def day_17():
     print(f"  - part 2: {min(candidates)}")
 
 
+def day_18():
+    print("Day 18:")
+
+    file_name = f"2024/input/day_18{'_example' if EXAMPLE else ''}.txt"
+    with open(file_name, "r") as file:
+        POSITIONS = tuple(
+            tuple(map(int, reversed(line.split(",")))) for line in file
+        )
+    LENGTH = 7 if EXAMPLE else 71
+    START, EXIT = (0, 0), (LENGTH - 1, LENGTH - 1)
+
+
+    def part_1(first):
+        count, paths, visited = 0, {START}, set(POSITIONS[:first]) | {START}
+        while paths:
+            count += 1
+            paths_new = set()
+            for y, x in paths:
+                for dy, dx in (0, 1), (1, 0), (0, -1), (-1, 0):
+                    y1, x1 = y + dy, x + dx
+                    p1 = y1, x1
+                    if 0 <= y1 < LENGTH and 0 <= x1 < LENGTH and p1 not in visited:
+                        if p1 == EXIT:
+                            return count
+                        paths_new.add(p1)
+                        visited.add(p1)
+            paths = paths_new
+        return None
+
+
+    print(f"  - part 1: {part_1(12 if EXAMPLE else 1024)}")
+
+    for first in range(len(POSITIONS), 0, -1):
+        if part_1(first) is not None:
+            y, x = POSITIONS[first]
+            solution = f"{x},{y}"
+            break
+    print(f"  - part 2: {solution}")
+
+
 days = {
     1: day_1,
     2: day_2,
@@ -795,22 +835,22 @@ days = {
     14: day_14,
     15: day_15,
     16: day_16,
-    17: day_17
+    17: day_17,
+    18: day_18
 }
 
 
 if __name__ == "__main__":
 
 
-    total = 0
+    total_seconds = 0
     for day in selected_days:
-        if day not in days:
-            continue
+        if day not in days: continue
         func = days[day]
         start = perf_counter()
         func()
         end = perf_counter()
-        duration = end - start
-        print(f"  => {duration:.2f} seconds\n")
-        total += duration
-    print(f"\n=> {total:.2f} seconds total\n")
+        seconds = end - start
+        print(f"  => run time: {seconds:.2f} seconds\n")
+        total_seconds += seconds
+    print(f"\n=> total run time: {total_seconds:.2f} seconds total\n")
