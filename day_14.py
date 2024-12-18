@@ -31,8 +31,8 @@ def contains_frame(positions):
         lines.setdefault(y, set()).add(x)
     for line in lines.values():
         line = "".join("*" if x in line else " " for x in range(COLS))
-        if "*******************************" in line:
-              return True
+        if "********" in line:
+            return True
     return False
 
 
