@@ -11,8 +11,7 @@ ROWS, COLS = len(grid), len(grid[0])
 obstacles = set()
 for r, line in enumerate(grid):
     for c, char in enumerate(line):
-        if char == ".":
-            continue
+        if char == ".": continue
         if char == "#":
             obstacles.add((r, c))
         else:
@@ -31,10 +30,10 @@ while True:
     d = d1
 print(f"Part 1: {len(visited)}")
 
-count, d_start = 0, direction
+count = 0
 for position in visited - {start}:
     obstacles_mod = obstacles | {position}
-    (r, c), d = start, d_start
+    (r, c), d = start, direction
     visited = {(r, c, d)}
     while True:
         (dr, dc), d1 = DELTA[d], d
