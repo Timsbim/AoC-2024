@@ -1,4 +1,4 @@
-# Solutions to the [Advent of Code 2024][1]) mysteries.
+# Solutions to the [Advent of Code 2024][1] mysteries.
 
 All solutions are from me, without any help. There's no shame in getting help - but I like the challenge. The initial solutions are usually messy and take longer to run, the ones here are refactored and optimized.
 
