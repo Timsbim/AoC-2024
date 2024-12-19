@@ -8,7 +8,6 @@ file_name = f"2024/input/day_19{'_example' if EXAMPLE else ''}.txt"
 with open(file_name, "r") as file:
     patterns, designs =  file.read().split("\n\n")
 PATTERNS = set(patterns.split(", "))
-designs = tuple(designs.splitlines())
 
 
 @cache
@@ -20,6 +19,6 @@ def accounting(design):
     )
 
 
-counts = [*map(accounting, designs)]
+counts = [*map(accounting, designs.splitlines())]
 print(f"Part 1: {sum(map(bool, counts))}")
 print(f"Part 2: {sum(counts)}")
