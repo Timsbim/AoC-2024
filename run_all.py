@@ -204,8 +204,7 @@ def day_6():
     obstacles = set()
     for r, line in enumerate(grid):
         for c, char in enumerate(line):
-            if char == ".":
-                continue
+            if char == ".": continue
             if char == "#":
                 obstacles.add((r, c))
             else:
@@ -224,10 +223,10 @@ def day_6():
         d = d1
     print(f"  - part 1: {len(visited)}")
 
-    count, d_start = 0, direction
+    count = 0
     for position in visited - {start}:
         obstacles_mod = obstacles | {position}
-        (r, c), d = start, d_start
+        (r, c), d = start, direction
         visited = {(r, c, d)}
         while True:
             (dr, dc), d1 = DELTA[d], d
@@ -822,6 +821,36 @@ def day_18():
     print(f"  - part 2: {solution}")
 
 
+def day_19():
+    print("Day 19:")
+
+    file_name = f"2024/input/day_19{'_example' if EXAMPLE else ''}.txt"
+    with open(file_name, "r") as file:
+        patterns, designs =  file.read().split("\n\n")
+    PATTERNS = set(patterns.split(", "))
+    designs = tuple(designs.splitlines())
+
+
+    @cache
+    def accounting(design):
+        return (1 if design in PATTERNS else 0) + sum(
+            accounting(design[len(pattern):])
+            for pattern in PATTERNS
+            if design.startswith(pattern)
+        )
+
+
+    count_1 = count_2 = 0
+    for design in designs:
+        count = accounting(design)
+        if count:
+            count_1 += 1
+            count_2 += count
+
+    print(f"  - part 1: {count_1}")
+    print(f"  - part 2: {count_2}")
+
+
 days = {
     1: day_1,
     2: day_2,
@@ -840,7 +869,8 @@ days = {
     15: day_15,
     16: day_16,
     17: day_17,
-    18: day_18
+    18: day_18,
+    19: day_19
 }
 
 
