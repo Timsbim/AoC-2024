@@ -840,15 +840,9 @@ def day_19():
         )
 
 
-    count_1 = count_2 = 0
-    for design in designs:
-        count = accounting(design)
-        if count:
-            count_1 += 1
-            count_2 += count
-
-    print(f"  - part 1: {count_1}")
-    print(f"  - part 2: {count_2}")
+    counts = [*map(accounting, designs)]
+    print(f"  - part 1: {sum(map(bool, counts))}")
+    print(f"  - part 2: {sum(counts)}")
 
 
 days = {
