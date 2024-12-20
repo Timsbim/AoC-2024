@@ -890,10 +890,9 @@ def day_20():
                         count_1 += 1
                     else:
                         count_2 += 1                        
-    count_2 += count_1
 
     print(f"  - part 1: {count_1}")
-    print(f"  - part 2: {count_2}")
+    print(f"  - part 2: {count_1 + count_2}")
 
 
 days = {
