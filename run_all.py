@@ -861,15 +861,15 @@ def day_20():
     THRESHOLD = 50 if EXAMPLE else 100
 
 
-    def on_the_edge(p, dist):
+    def on_the_edge(p):
         """ Counting is symmetric => only one half necesarry """
         r, c = p
-        yield r + dist, c 
-        for dr in range(1, dist):
-            dc = dist - dr
-            yield r + dr, (c1 := c + dc)
-            yield r - dr, c1
-        yield r, c + dist
+        for dist in range(2, 21):
+            yield (r + dist, c), dist
+            for dr in range(1, dist):
+                yield (r + dr, (c1 := c + dist - dr)), dist
+                yield (r - dr, c1), dist
+            yield (r, c + dist), dist
 
 
     path = [None, START]
@@ -883,13 +883,12 @@ def day_20():
     path = {p: n for n, p in enumerate(path[1:])}
     count_1 = count_2 = 0
     for p0, t0 in path.items():
-        for dist in range(2, 21):
-            for p1 in on_the_edge(p0, dist):
-                if p1 in path and abs(path[p1] - t0) - dist >= THRESHOLD:
-                    if dist == 2:
-                        count_1 += 1
-                    else:
-                        count_2 += 1                        
+        for p1, dist in on_the_edge(p0):
+            if p1 in path and abs(path[p1] - t0) - dist >= THRESHOLD:
+                if dist == 2:
+                    count_1 += 1
+                else:
+                    count_2 += 1                        
 
     print(f"  - part 1: {count_1}")
     print(f"  - part 2: {count_1 + count_2}")
