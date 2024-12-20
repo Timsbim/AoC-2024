@@ -519,46 +519,41 @@ def day_13():
 def day_14():
     print("Day 14:")
 
-    robots = []
-    with open("2024/input/day_14.txt", "r") as file:
+    positions, velocities = [], []
+    file_name = f"2024/input/day_14{'_example' if EXAMPLE else ''}.txt"
+    with open(file_name, "r") as file:
         for line in file:
-            robots.append(tuple(
-                tuple(map(int, reversed(part[2:].split(","))))
-                for part in line.split()
-            ))
-    robots = tuple(robots)
-    ROWS, COLS = 103, 101
+            position, velocity = line.split()
+            x, y = map(int, position[2:].split(","))
+            positions.append((y, x))
+            vx, vy = map(int, velocity[2:].split(","))
+            velocities.append((vy, vx))
+    POSITIONS, VELOCITIES = tuple(positions), tuple(velocities)
+    ROWS, COLS = (7, 11) if EXAMPLE else (103, 101)
+    ROWS_M, COLS_M = ROWS // 2, COLS // 2
 
-    positions = tuple(
+
+    def safety_factor(positions):
+        quadrants = {(0, 0): 0, (0, 1): 0, (1, 0): 0, (1, 1): 0}
+        for y, x in positions:
+            if y != ROWS_M and x != COLS_M:
+                quadrants[int(y < ROWS_M), int(x < COLS_M)] += 1    
+        return prod(quadrants.values())
+
+
+    solution = safety_factor(
         ((py + 100 * vy) % ROWS, (px + 100 * vx) % COLS)
-        for (py, px), (vy, vx) in robots
+        for (py, px), (vy, vx) in zip(POSITIONS, VELOCITIES)
     )
-    quadrants = {(0, 0): 0, (0, 1): 0, (1, 0): 0, (1, 1): 0}
-    m_rows, m_cols = ROWS // 2, COLS // 2
-    for y, x in positions:
-        if y != m_rows and x != m_cols:
-            quadrants[int(y < m_rows), int(x < m_cols)] += 1    
-    print(f"  - part 1: {prod(quadrants.values())}")
+    print(f"  - part 1: {solution}")
 
-
-    def contains_frame(positions):
-        lines = {}
-        for y, x in set(positions):
-            lines.setdefault(y, set()).add(x)
-        for line in lines.values():
-            line = "".join("*" if x in line else " " for x in range(COLS))
-            if "********" in line:
-                return True
-        return False
-
-
-    positions, velocities = zip(*robots)
+    positions = POSITIONS
     for second in range(1, 10404):
         positions = tuple(
             ((py + vy) % ROWS, (px + vx) % COLS)
-            for (py, px), (vy, vx) in zip(positions, velocities)
+            for (py, px), (vy, vx) in zip(positions, VELOCITIES)
         )
-        if contains_frame(positions):
+        if safety_factor(positions) < 100_000_000:
             break
     print(f"  - part 2: {second}")
 
@@ -921,14 +916,14 @@ days = {
 if __name__ == "__main__":
 
 
-    total_seconds = 0
+    total_ms = 0
     for day in selected_days:
         if day not in days: continue
         func = days[day]
         start = perf_counter()
         func()
         end = perf_counter()
-        seconds = end - start
-        print(f"  => run time: {seconds:.2f} seconds\n")
-        total_seconds += seconds
-    print(f"\n=> total run time: {total_seconds:.2f} seconds\n")
+        ms = (end - start) * 1_000
+        print(f"  => run time: {ms:.0f} ms\n")
+        total_ms += ms
+    print(f"\n=> total run time: {total_ms:.0f} ms\n")

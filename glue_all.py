@@ -86,17 +86,17 @@ strings.append(f"days = {{\n{indent(day_dict, indentation)}\n}}")
 # measurements
 strings.append('if __name__ == "__main__":')
 run_loop = dedent("""\
-        total_seconds = 0
+        total_ms = 0
         for day in selected_days:
             if day not in days: continue
             func = days[day]
             start = perf_counter()
             func()
             end = perf_counter()
-            seconds = end - start
-            print(f"  => run time: {seconds:.2f} seconds\\n")
-            total_seconds += seconds
-        print(f"\\n=> total run time: {total_seconds:.2f} seconds\\n")
+            ms = (end - start) * 1_000
+            print(f"  => run time: {ms:.0f} ms\\n")
+            total_ms += ms
+        print(f"\\n=> total run time: {total_ms:.0f} ms\\n")
         """
     )
 strings.append(indent(run_loop, indentation))
