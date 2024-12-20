@@ -6,12 +6,12 @@ GRID = set()
 with open(file_name, "r") as file:
     for r, line in enumerate(file):
         for c, char in enumerate(line):
+            if char == "#": continue
             if char == "S":
                 START = r, c
             elif char == "E":
                 END = r, c
-            elif char == "#":
-                GRID.add((r, c))
+            GRID.add((r, c))
 THRESHOLD = 50 if EXAMPLE else 100
 
 
@@ -31,7 +31,7 @@ while path[-1] != END:
     r, c = path[-1]
     for dr, dc in (0, 1), (1, 0), (-1, 0), (0, -1):
         p = r + dr, c + dc
-        if p != path[-2] and p not in GRID:
+        if p != path[-2] and p in GRID:
             path.append(p)
             break
 path = {p: n for n, p in enumerate(path[1:])}
