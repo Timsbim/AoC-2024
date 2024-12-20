@@ -547,15 +547,15 @@ def day_14():
     )
     print(f"  - part 1: {solution}")
 
-    positions = POSITIONS
+    minimum, positions = float("inf"), POSITIONS
     for second in range(1, 10404):
         positions = tuple(
             ((py + vy) % ROWS, (px + vx) % COLS)
             for (py, px), (vy, vx) in zip(positions, VELOCITIES)
         )
-        if safety_factor(positions) < 100_000_000:
-            break
-    print(f"  - part 2: {second}")
+        if (factor := safety_factor(positions)) < minimum:
+            minimum, second_min = factor, second
+    print(f"  - part 2: {second_min}")
 
 
 def day_15():

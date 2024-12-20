@@ -1,7 +1,4 @@
-""" Pro tipp: the first part is more often than not very helpful! The safety
- factor of evenly distributed positions is roughly 240_000_000. So a threshold
- that is low enough will point out anomalies.
-"""
+""" Pro tipp: the first part is more often than not very helpful! """
 from math import prod
 
 
@@ -36,12 +33,12 @@ solution = safety_factor(
 )
 print(f"Part 1: {solution}")
 
-positions = POSITIONS
+minimum, positions = float("inf"), POSITIONS
 for second in range(1, 10404):
     positions = tuple(
         ((py + vy) % ROWS, (px + vx) % COLS)
         for (py, px), (vy, vx) in zip(positions, VELOCITIES)
     )
-    if safety_factor(positions) < 100_000_000:
-        break
-print(f"Part 2: {second}")
+    if (factor := safety_factor(positions)) < minimum:
+        minimum, second_min = factor, second
+print(f"Part 2: {second_min}")
