@@ -21,7 +21,7 @@ def on_the_edge(p):
     for dist in range(2, 21):
         yield (r + dist, c), dist
         for dr in range(1, dist):
-            yield (r + dr, (c1 := c + dist - dr)), dist
+            yield (r + dr, c1 := c + dist - dr), dist
             yield (r - dr, c1), dist
         yield (r, c + dist), dist
 
