@@ -2,7 +2,7 @@
 
 Thank you [Eric Wastl][Eric] for creating this great source of joy! 🎄
 
-All solutions are from me, without any help. There's no shame in getting help - but I like the challenge. The initial solutions are usually messy and take longer to run, the ones here are refactored and optimized. I'm running the code mostly in [PyPy][PyPy] to speed it up a little bit.
+All solutions here are from me, found without any help. There's aboslutely no shame in getting help - but I like the challenge. The initial solutions are usually messy and take longer to run, the ones here are refactored and optimized. I'm running the code mostly in [PyPy][PyPy] to speed it up a little bit.
 
 As [requested][AoC_About] by Eric, the repository doesn't contain any inputs.
 
