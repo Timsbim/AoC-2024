@@ -44,7 +44,6 @@ for p0, t0 in path.items():
                     count_1 += 1
                 else:
                     count_2 += 1                        
-count_2 += count_1
 
 print(f"Part 1: {count_1}")
-print(f"Part 2: {count_2}")
+print(f"Part 2: {count_1 + count_2}")
