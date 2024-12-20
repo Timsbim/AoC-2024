@@ -885,12 +885,11 @@ def day_20():
     for p0, t0 in path.items():
         for dist in range(2, 21):
             for p1 in on_the_edge(p0, dist):
-                if p1 in path:
-                    if abs(path[p1] - t0) - dist >= THRESHOLD:
-                        if dist == 2:
-                            count_1 += 1
-                        else:
-                            count_2 += 1                    
+                if p1 in path and abs(path[p1] - t0) - dist >= THRESHOLD:
+                    if dist == 2:
+                        count_1 += 1
+                    else:
+                        count_2 += 1                        
     count_2 += count_1
 
     print(f"  - part 1: {count_1}")
