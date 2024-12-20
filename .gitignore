@@ -132,6 +132,9 @@ dmypy.json
 poetry.lock
 pyproject.toml
 
+# UV stuff
+uv.lock
+
 # Repl.it
 .replit
 replit.nix
