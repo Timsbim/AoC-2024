@@ -20,7 +20,6 @@ NUM = {
 }
 NUMPAD = {}
 for (r0, c0), (r1, c1) in combinations(NUM, 2):
-    if r0 == r1 and c0 == c1: continue
     k0, k1 = NUM[r0, c0], NUM[r1, c1]
     dr, dc = r1 - r0, c1 - c0
     ver = "^" * abs(dr) if dr < 0 else "v" * dr
