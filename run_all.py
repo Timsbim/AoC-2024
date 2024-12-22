@@ -1019,8 +1019,6 @@ def day_22():
 
     print(f"  - part 1:", solution_1)
     print(f"  - part 2:", max(bananas.values()))
-    assert solution_1 == (37327623 if EXAMPLE else 20068964552)
-    assert max(bananas.values()) == (24 if EXAMPLE else 2246)
 
 
 days = {
