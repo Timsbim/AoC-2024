@@ -20,7 +20,7 @@ NUM = {
     for c, char in enumerate(line)
     if char != " "
 }
-NUMPAD = dict.fromkeys(zip("0123456789A", "0123456789A"), tuple())
+NUMPAD = dict.fromkeys(zip("0123456789A", "0123456789A"), ("",))
 for (r0, c0), (r1, c1) in combinations(NUM, 2):
     k0, k1 = NUM[r0, c0], NUM[r1, c1]
     ver = "v" * dr if (dr := r1 - r0) >= 0 else "^" * abs(dr)
