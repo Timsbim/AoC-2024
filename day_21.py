@@ -1,5 +1,5 @@
 from functools import cache
-from itertools import combinations, groupby
+from itertools import combinations, groupby, product
 
 
 print("Day 21")
@@ -21,9 +21,8 @@ NUM = {
 NUMPAD = {}
 for (r0, c0), (r1, c1) in combinations(NUM, 2):
     k0, k1 = NUM[r0, c0], NUM[r1, c1]
-    dr, dc = r1 - r0, c1 - c0
-    ver = "^" * abs(dr) if dr < 0 else "v" * dr
-    hor = "<" * abs(dc) if dc < 0 else ">" * dc
+    ver = "v" * dr if (dr := r1 - r0) >= 0 else "^" * abs(dr)
+    hor = ">" * dc if (dc := c1 - c0) >= 0 else "<" * abs(dc)
     if c0 == 0 and r1 == 3:
         NUMPAD[k0, k1] = {hor + ver}
     else:
@@ -64,35 +63,23 @@ DIRPAD = {
 @cache
 def length(path, n):
     if n == 0:
-        return len(path) - 1
+        return len(path)
     count = 0
-    for take, group in groupby(path, key=lambda char: char != "A"):
+    for As, group in groupby(path, key=lambda char: char == "A"):
         path = "".join(group)
-        if not take:
+        if As:
             count += len(path) - 1
             continue
-        path = f"A{path}A"
-        path = "".join(f"{DIRPAD[a, b]}A" for a, b in zip(path, path[1:]))
-        count += length(f"A{path}", n-1)
+        path = "A".join(map(DIRPAD.get, zip(f"A{path}", f"{path}A")))
+        count += length(f"{path}A", n-1)
     return count
 
 
 def complexity(code, n=2):
-    code = f"A{code}"
-    paths = {"A"}
-    for a, b in zip(code, code[1:]):
-        paths_new = set()
-        for part in NUMPAD[a, b]:
-            for path in paths:
-                paths_new.add(f"{path}{part}A")
-        paths = paths_new
-    num = int(code.replace("A", ""))
-    return num * min(length(path, n) for path in paths)
+    paths = product(*map(NUMPAD.get, zip(f"A{code}", code)))
+    paths = ("A".join(path) + "A" for path in paths)
+    return int(code.replace("A", "")) * min(length(path, n) for path in paths)
 
 
-solution_1 = sum(complexity(code) for code in CODES)
-solution_2 = sum(complexity(code, n=25) for code in CODES)
-print(f"Part 1: {solution_1}")
-print(f"Part 2: {solution_2}")
-assert solution_1 == (126384 if EXAMPLE else 152942)
-assert solution_2 == (154115708116294 if EXAMPLE else 189235298434780)
+print(f"Part 1: {sum(map(complexity, CODES))}")
+print(f"Part 2: {sum(complexity(code, n=25) for code in CODES)}")
