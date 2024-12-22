@@ -907,7 +907,6 @@ def day_21():
     }
     NUMPAD = {}
     for (r0, c0), (r1, c1) in combinations(NUM, 2):
-        if r0 == r1 and c0 == c1: continue
         k0, k1 = NUM[r0, c0], NUM[r1, c1]
         dr, dc = r1 - r0, c1 - c0
         ver = "^" * abs(dr) if dr < 0 else "v" * dr
@@ -986,6 +985,44 @@ def day_21():
     assert solution_2 == (154115708116294 if EXAMPLE else 189235298434780)
 
 
+def day_22():
+    print("Day 22:")
+
+    file_name = f"2024/input/day_22{'_example' if EXAMPLE else ''}.txt"
+    with open(file_name, "r") as file:
+        SECRETS = tuple(int(line.rstrip()) for line in file)
+    PRUNE = 16777216
+    
+
+    def next_secret(secret):
+        secret = ((secret * 64) ^ secret) % PRUNE
+        secret = ((secret // 32) ^ secret) % PRUNE
+        return ((secret * 2048) ^ secret) % PRUNE
+
+
+    solution_1, bananas = 0, {}
+    for secret in SECRETS:
+        price, prices, changes = secret % 10, [], []
+        for _ in range(2_000):
+            secret = next_secret(secret)
+            price_new = secret % 10
+            changes.append(price_new - price)
+            prices.append(price_new)
+            price = price_new
+        solution_1 += secret
+        candidates = set()
+        for i in range(3, 2_000):
+            sequence = tuple(changes[i-3:i+1])
+            if sequence in candidates: continue
+            candidates.add(sequence)
+            bananas[sequence] = bananas.get(sequence, 0) + prices[i]    
+
+    print(f"  - part 1:", solution_1)
+    print(f"  - part 2:", max(bananas.values()))
+    assert solution_1 == (37327623 if EXAMPLE else 20068964552)
+    assert max(bananas.values()) == (24 if EXAMPLE else 2246)
+
+
 days = {
     1: day_1,
     2: day_2,
@@ -1007,7 +1044,8 @@ days = {
     18: day_18,
     19: day_19,
     20: day_20,
-    21: day_21
+    21: day_21,
+    22: day_22
 }
 
 

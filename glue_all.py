@@ -10,7 +10,7 @@ re_imports = re.compile(r"^import\s+(.+)\s*$", re.M)
 re_from = re.compile(r"^from\s+(\S+)\s+import\s+(.+)$", re.M)
 re_example = re.compile(r"^\s*EXAMPLE\s+=\s+(True|False)\s*$", re.M)
 re_print_day = re.compile(r'^\s*print\("Day\s+\d+', re.M)
-re_print_result = re.compile(r'print\(f"Part ')
+re_print_result = re.compile(r'print\(f?"Part ')
 
 days, modules = {}, set()
 partials = {"argparse": {"ArgumentParser"}, "time": {"perf_counter"}}
