@@ -913,7 +913,7 @@ def day_21():
         ver = "v" * dr if (dr := r1 - r0) >= 0 else "^" * abs(dr)
         hor = ">" * dc if (dc := c1 - c0) >= 0 else "<" * abs(dc)
         NUMPAD[k0, k1] = (hor + ver,)
-        if c0 != 0 or r1 != 3:
+        if (c0 != 0 or r1 != 3) and (dr != 0 and dc != 0):
             NUMPAD[k0, k1] += (ver + hor,)
         NUMPAD[k1, k0] = tuple(
             "".join(REV[c] for c in seq[::-1]) for seq in NUMPAD[k0, k1]
