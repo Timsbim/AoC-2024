@@ -920,7 +920,7 @@ def day_21():
         )
 
 
-    # Why not just do this part from hand :)
+    # Why not just do this part manually :)
     DIR = {
         (r, c): char
         for r, line in enumerate(" ^A|<v>".split("|"))
@@ -994,7 +994,7 @@ def day_22():
         candidates = set()
         for i in range(3, 2_000):
             sequence = tuple(changes[i-3:i+1])
-            if sequence in candidates: continue
+            if sequence in candidates or sum(sequence) < 0: continue
             candidates.add(sequence)
             bananas[sequence] = bananas.get(sequence, 0) + prices[i]    
 

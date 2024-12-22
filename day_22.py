@@ -26,7 +26,7 @@ for secret in SECRETS:
     candidates = set()
     for i in range(3, 2_000):
         sequence = tuple(changes[i-3:i+1])
-        if sequence in candidates: continue
+        if sequence in candidates or sum(sequence) < 0: continue
         candidates.add(sequence)
         bananas[sequence] = bananas.get(sequence, 0) + prices[i]    
 
