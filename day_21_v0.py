@@ -33,7 +33,7 @@ for (r0, c0), (r1, c1) in combinations(NUM, 2):
     )
 
 
-# Why not just do this part from hand :)
+# Why not just do this part manually :)
 DIR = {
     (r, c): char
     for r, line in enumerate(" ^A|<v>".split("|"))
