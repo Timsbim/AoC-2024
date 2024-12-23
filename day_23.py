@@ -15,12 +15,12 @@ for n0, n1 in sorted((numbers[n0], numbers[n1]) for n0, n1 in EDGES):
         graph[n0].append(n1)
     else:
         graph[n1].append(n0)
-neighbours = {n: set(ns) for n, ns in graph.items()}
+num_nodes, neighbours = len(graph), {n: set(ns) for n, ns in graph.items()}
 cliques, length = [(n0, n1) for n0 in graph for n1 in graph[n0]], 2
 while cliques:
     cliques_new = []
     for clique in cliques:
-        for n1 in range(clique[-1] + 1, len(graph)):
+        for n1 in range(clique[-1] + 1, num_nodes):
             if all(n1 in neighbours[n0] for n0 in clique):
                 cliques_new.append(clique + (n1,))
     if len(cliques_new) == 0:
