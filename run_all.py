@@ -1008,8 +1008,6 @@ def day_23():
     file_name = f"2024/input/day_23{'_example' if EXAMPLE else ''}.txt"
     with open(file_name, "r") as file:
         EDGES = tuple(tuple(line.rstrip().split("-")) for line in file)
-    if EXAMPLE:
-        pprint(EDGES)
 
     nodes = {i: n for i, n in enumerate(sorted({n for e in EDGES for n in e}))}
     numbers = {n: i for i, n in nodes.items()}
