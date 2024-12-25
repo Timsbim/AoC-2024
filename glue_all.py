@@ -15,7 +15,7 @@ re_print_result = re.compile(r'print\(f?"Part ')
 days, modules = {}, set()
 partials = {"argparse": {"ArgumentParser"}, "time": {"perf_counter"}}
 for file_path in Path().glob("day_*.py"):
-    if "v1" in (name := file_path.name):
+    if "v1" in (name := file_path.name) or "part" in name:
         continue
     
     day = int(name[4:6])
