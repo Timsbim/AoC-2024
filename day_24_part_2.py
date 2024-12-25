@@ -47,8 +47,8 @@ To hone in on the wrong gates I've used the two functions:
 
  - run_and_show_error: it runs the system and shows which z's aren't compute as
                        expected
- - show_algorithm: shows the actual algorihm in a way that makes it relatively
-                   easy to detect the deviation from the expected algorithm
+ - show_algorithm: shows the actual algorithm in a way that makes it relatively
+                   easy to detect the deviations from the expected algorithm
 
 As of now I don't have an implementation that detects the gate swaps ... work
 in progress.
