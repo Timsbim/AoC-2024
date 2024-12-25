@@ -43,7 +43,7 @@ induction :)):
         z_n =  (x_n ^ y_n) ^ c_n-1
         c_n = [(x_n ^ y_n) & c_n-1] | (x_n & y_n)
 
-To hone in on the wrong gates I've used the two functions
+To hone in on the wrong gates I've used the two functions:
 
  - run_and_show_error: it runs the system and shows which z's aren't compute as
                        expected
