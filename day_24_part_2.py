@@ -57,7 +57,7 @@ Or, to align it with the puzzle algorithm:
         b = x_n-1 & y_n-1
         c_n = x_n ^ y_n
         d_n = b | a
-        z_n = d_n ^ b
+        z_n = d_n ^ c_n
 
 To hone in on the wrong gates I've used the two functions:
 
