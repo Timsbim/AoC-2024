@@ -119,9 +119,9 @@ run_and_show_errors(GATES)
 
 
 def show_algorithm(until=None):
-    fmt = "{: >3}: {} {} {} => {}"
     if until is None:
         until = len(Zs)
+    fmt, short = "{: >3}: {} {} {} => {}", {"AND": "&", "OR": "|", "XOR": "^"}
     algorithm = {}
     for n, z in enumerate(Zs):
         layers, wires = [], [z]
@@ -138,7 +138,7 @@ def show_algorithm(until=None):
             if len(layers) > 4:
                 break
         algorithm[z] = "\n".join(
-            fmt.format(i, a, op.rjust(3), b, c)
+            fmt.format(i, a, short[op], b, c)
             for i, (a, op, b, c) in reversed(layers)
         )
         print(f"{z}:")
