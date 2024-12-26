@@ -138,8 +138,8 @@ def show_algorithm(until=None):
             if len(layers) > 4:
                 break
         algorithm[z] = "\n".join(
-            fmt.format(i, a, op.center(3), b, c)
-            for i, (a, op, b, c) in layers
+            fmt.format(i, a, op.rjust(3), b, c)
+            for i, (a, op, b, c) in reversed(layers)
         )
         print(f"{z}:")
         print(indent(algorithm[z], "     "))
