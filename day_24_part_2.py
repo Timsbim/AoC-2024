@@ -43,6 +43,22 @@ induction :)):
         z_n =  (x_n ^ y_n) ^ c_n-1
         c_n = [(x_n ^ y_n) & c_n-1] | (x_n & y_n)
 
+Or, to align it with the puzzle algorithm:
+
+    Start (n = 0):
+
+        c_0 = x_0 ^ y_0
+        d_0 = 0
+        z_0 = c_0
+
+    Recursion for n > 0:
+
+        a = d_n-1 & c_n-1
+        b = x_n-1 & y_n-1
+        c_n = x_n ^ y_n
+        d_n = b | a
+        z_n = d_n ^ b
+
 To hone in on the wrong gates I've used the two functions:
 
  - run_and_show_error: it runs the system and shows which z's aren't compute as
@@ -119,7 +135,7 @@ def show_algorithm(until=None):
             wires = wires_new
             layer = sorted(layer, key=lambda t: t[1][1])
             layers.extend(layer)
-            if len(layers) >= 6:
+            if len(layers) > 4:
                 break
         algorithm[z] = "\n".join(
             fmt.format(i, a, op.center(3), b, c)
